@@ -1,0 +1,41 @@
+2025-08-09 13:18:45,199 - INFO - Telegram app closed successfully
+2025-08-09 13:18:46,227 - INFO - Telegram data cleared successfully
+2025-08-09 13:18:46,543 - INFO - Advertising ID reset successfully
+2025-08-09 13:18:46,656 - INFO - Сгенерирован новый X.509 токен
+2025-08-09 13:18:47,830 - INFO - User-Agent changed to Mozilla/5.0 (Linux; Android 10; VOG-AL10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36
+2025-08-09 13:18:48,293 - INFO - Setting android_id changed to 1a5f110cdb4c1df1
+2025-08-09 13:18:48,573 - INFO - Setting bluetooth_address changed to 64:da:92:8d:ef:8e
+2025-08-09 13:18:49,122 - INFO - Setting device_id changed to eeaa4e12952dbd5d
+2025-08-09 13:18:49,497 - INFO - Setting config_update_certificate changed to MIIDtjCCAp6gAwIBAgIUCdQrGOAy1wtkhvC5pDMoVBgalzMwDQYJKoZIhvcNAQELBQAwgYYxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1Nb3VudGFpbiBWaWV3MRMwEQYDVQQKDApHb29nbGUgSW5jMRAwDgYDVQQLDAdBbmRyb2lkMSMwIQYJKoZIhvcNAQkBFhRzZWN1cml0eUBhbmRyb2lkLmNvbTAeFw0yNTA4MDkxMDE4NDZaFw0yNTA5MDgxMDE4NDZaMIGGMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzETMBEGA1UECgwKR29vZ2xlIEluYzEQMA4GA1UECwwHQW5kcm9pZDEjMCEGCSqGSIb3DQEJARYUc2VjdXJpdHlAYW5kcm9pZC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDUEAd5zCiiPnQ7PJ0QpxiokzsUaNUmzjftD6MeLkYqVFs0h06oJ8/cfQEqhdXymY0b/yKCf526spEpEAQxdfswnNQU6KrH4aWIPaetVWkQfJW8KhdZ2ND13LnXSc5z03OONMV4AgK6r0yxHSRqLNo67hW0mTEUlFqD8Z5osh9CS3lmaP7M0QO3g+mMK+0ESvSZvwUYWBjHbHh4Nl7nPw6KL5oSVtBk7ZHjC5zYSckNifi21q1H5tbG3PGCx0m3vCSojMGXr6t+YWEPOhSTIydMY+IF029PyCRrZvxlzAGOoC9un2AIfXgp+V/PCroOgd0E/uinSdSEfRggYC9M79wbAgMBAAGjGjAYMBYGA1UdEQQPMA2CC2FuZHJvaWQuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQCiUVnOVl7IWG9y8CPIysXhk1gLPkQfT0Qr0J4z/tZUtwXy8b9QD4cC15bPAqlW3sjmg7T+g55ERkVg5bs2v9Y7Dyd7In8ivpFrZMg9h7b3Y0OQSxpiy7PODnSI2LQi/c1rK8tXU3JL3UoFoNx3fTMqrL4QpSmPPk+yb3vNsb0BOVTrcA+ZGxKdpxaMTdlbC5oVNQS5av5M9pq/l0KV/JLYogEj1rHvg5uw5wManCOFpilirsScsvIA4yVTCoWXdvKo0yy9zMQnDoPlTad90YDvR6WnbKgh1+KdrNn5y1URb7LKwAS5FHUn4+uc9VBUNWIsGjL3dVzOTq7XxvchfMbV
+2025-08-09 13:18:50,099 - INFO - Setting database_creation_buildid changed to PQ3B.240624.73800881
+2025-08-09 13:18:50,469 - INFO - Setting ro.boottime.zygote_secondary changed to 3000472818
+2025-08-09 13:18:50,699 - INFO - Setting ro.boottime.vendor.bluetooth-1-0 changed to 1116784926
+2025-08-09 13:18:50,888 - INFO - Setting ro.boottime.console changed to 2466950677
+2025-08-09 13:18:51,174 - INFO - Setting ro.boottime.vendor.ril-daemon changed to 1671368398
+2025-08-09 13:18:51,359 - INFO - Setting ro.boottime.traced changed to 3957031705
+2025-08-09 13:18:51,622 - INFO - Setting ro.boottime.cameraserver changed to 6446322264
+2025-08-09 13:18:51,808 - INFO - Setting ro.boottime.hidl_memory changed to 7823701435
+2025-08-09 13:18:51,936 - INFO - Setting ro.boottime.ueventd changed to 2085090141
+2025-08-09 13:18:52,051 - INFO - Setting ro.boottime.vendor.gnss_service changed to 1969989422
+2025-08-09 13:18:52,190 - INFO - Setting ro.boottime.vendor.audio-hal-2-0 changed to 1403339748
+2025-08-09 13:18:52,337 - INFO - Setting ro.boottime.usbd changed to 1918247013
+2025-08-09 13:18:52,468 - INFO - Setting ro.boottime.vendor.health-hal-2-0 changed to 7808746584
+2025-08-09 13:18:52,591 - INFO - Setting ro.boottime.tombstoned changed to 2697084712
+2025-08-09 13:18:52,732 - INFO - Setting ro.boottime.hwservicemanager changed to 3028864421
+2025-08-09 13:18:52,964 - INFO - Setting ro.boottime.vendor.wifi_hal_legacy changed to 4525606046
+2025-08-09 13:18:53,078 - INFO - Setting ro.boottime.keystore changed to 1240841334
+2025-08-09 13:18:53,189 - INFO - Setting ro.boottime.vendor.power-hal-1-1 changed to 4737878049
+2025-08-09 13:18:53,316 - INFO - Setting ro.boottime.mediametrics changed to 5468782407
+2025-08-09 13:18:53,496 - INFO - Setting ro.boottime.surfaceflinger changed to 5598464987
+2025-08-09 13:18:53,672 - INFO - Setting persist.netd.stable_secret changed to 6cd9:6a18:dede:835e:aad3:f1c4:a2a1:34f1
+2025-08-09 13:18:53,889 - INFO - Setting ro.boottime.init changed to 6792
+2025-08-09 13:18:54,111 - INFO - Setting ro.boottime.init.selinux changed to 79
+2025-08-09 13:18:54,241 - INFO - Timezone changed to America/New_York
+2025-08-09 13:18:54,241 - INFO - Generated IMEI: 353348477158196
+2025-08-10 18:38:02,154 - INFO - Setting android_id changed to d23579df4dfe8431
+2025-08-10 18:44:20,062 - ERROR - Failed to set property wifi.interface.mac id with su: sh: <stdin>[1]: openssl: not found
+setprop: Need 2 arguments (see "setprop --help")
+
+2025-08-10 18:48:01,105 - INFO - Setting wifi.interface.mac changed to 24:b3:d7:8b:52:75
+2025-08-10 18:49:23,483 - INFO - Setting wifi.interface.mac changed to B0:EE:F0:FD:E0:27
+2025-08-10 18:52:54,759 - INFO - Setting ro.product.cpu.abi changed to armeabi-v7a
