@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/TG-Auto-Reg.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_reger/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_reger/emulator_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_reger/sms_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_reger/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Emulator/test_check_app_installed.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Emulator/test_do_activity.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Emulator/test_init_.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Telegram/test_account_log_out.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Telegram/test_extract_telegram_code.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Telegram/test_press_on_chat_with_telegram.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Telegram/test_reconnection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Telegram/test_send_number.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Telegram/test_start_messaging.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Bob-Marlow&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/parkouss/funq&quot;,
+    &quot;accountId&quot;: &quot;b259a949-21b7-435e-b184-868d6db32ab8&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2kqKXFwQRDPVQJrJGbjw01HTHLo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests for gild.MyTestCase.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for gild.MyTestCase.test_my_first_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_account_log_out.test_account_log_out.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_check_app_installed.test_check_app_installed.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_click_log_out_btn.test_click_log_out_btn.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_click_log_out_options.test_click_log_out_options.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_click_more_options.test_click_more_options.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_click_on_menu.test_click_on_menu.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_click_settings_btn.test_click_settings_btn.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_do_activity.test_do_activity.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_init_.test_init_.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_main.test_api.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_press_on_chat_with_telegram.test_press_on_chat_with_telegram.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_qty_of_numbers.test_qty_of_numbers.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_send_number.test_send_number.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_start_page.test_start_page.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest for test_verification_number.test_verification_number.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_check_verif_status.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_converter.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_enter_phone_verif_code.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_extract_telegram_code.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_main.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_onion_handler.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_qty_of_numbers.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_reconnection.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_send_number.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_start_messaging.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_start_page.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_verification_number.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.test_start_page.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Session Converter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.adb_handler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dergatel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gild.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lzt_api.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.onion_handler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.qty_of_numbers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sdfdf.executor&quot;: &quot;Run&quot;,
+    &quot;Python.session_converter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_change_status.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_converter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_get_balance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_get_number.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_onion_handler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_start_emulator.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\tests\Session Converter" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reg\messages" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reg\triggers" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reg\buttons" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\sessions\converted\2025-08-05\PROXY_USA_19-30" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\sessions\converted\2025-08-04\WIFI_UKR" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\sessions\converted\2025-08-04\MOBILE_UKR" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\tests\Session Converter" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\creds" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.adb_handler">
+    <configuration name="adb_handler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/adb_handler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="lzt_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/lzt_api.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="onion_handler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/onion_handler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="session_converter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/session_converter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_converter" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (TG-Auto-Reg)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/Session Converter/test_converter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (TG-Auto-Reg)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/Session Converter" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/Session Converter/test_converter.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.test_converter" />
+      <item itemvalue="Python.onion_handler" />
+      <item itemvalue="Python.adb_handler" />
+      <item itemvalue="Python.lzt_api" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.session_converter" />
+      <item itemvalue="Python tests.pytest in C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.adb_handler" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.onion_handler" />
+        <item itemvalue="Python.session_converter" />
+        <item itemvalue="Python.lzt_api" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="" />
+      <created>1724005704510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724005704510</updated>
+    </task>
+    <servers />
+  </component>
+</project>
