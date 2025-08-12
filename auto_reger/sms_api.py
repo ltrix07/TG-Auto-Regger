@@ -10,7 +10,6 @@ import logging
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
 
-
 def save_activation_to_json(activation_id, phone):
     """Сохраняет activation_id, phone и время запроса в JSON."""
     json_file = 'activations.json'

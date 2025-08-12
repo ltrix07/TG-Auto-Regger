@@ -7,6 +7,7 @@ import logging
 import socks
 import asyncio
 import aiohttp
+import shutil
 from datetime import datetime
 from auto_reger.adb_handler import reset_telegram_data, run_adb_command, get_device_info
 from auto_reger.session_converter import transfer_dat_session, convert_dat_to_session
@@ -14,10 +15,13 @@ from telethon import TelegramClient
 from auto_reger.utils import read_json, write_json
 from auto_reger.sms_api import SMSAPI, remove_activation_from_json, save_activation_to_json, can_set_status_8
 from auto_reger.emulator_handler import Telegram
-from auto_reger.onion_handler import Onion, VPN
+from auto_reger.app_handler import Onion, VPN, TelegramDesktop
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
+from telethon.tl.functions.messages import GetDialogsRequest
+from telethon.sync import TelegramClient
+from telethon.sessions import StringSession
 from concurrent.futures import ThreadPoolExecutor
 
 # Настройка кодировки для корректного вывода
@@ -34,14 +38,6 @@ SMS_TIMEOUT = 120  # 2 минуты
 COUNTRY = input('Enter country for registration Telegram account (USA, United Kingdom, etc.): ')
 
 
-async def check_ip():
-    async with aiohttp.ClientSession() as session:
-        async with session.get('https://api.ipify.org') as response:
-            ip = await response.text()
-            logging.info(f"Detected IP: {ip}")
-            return ip
-
-
 def setup_cech():
     if os.path.isfile(CECH_PATH):
         return read_json(CECH_PATH)
@@ -55,6 +51,22 @@ def load_names(file_path):
         return [line.strip() for line in f if line.strip()]
 
 
+def perform_neutral_actions(client):
+    try:
+        # Получение списка диалогов для имитации активности
+        result = client(GetDialogsRequest(
+            offset_date=None,
+            offset_id=0,
+            offset_peer=None,
+            limit=10,
+            hash=0
+        ))
+        logging.info("Neutral action: Retrieved dialogs")
+        time.sleep(random.uniform(2, 5))
+    except Exception as e:
+        logging.error(f"Failed neutral actions: {str(e)}")
+
+
 def save_session(phone_number, first_name, last_name, email_log, email_pass, activation_cost,
                  device_model, android_v, tg_v, system_lang):
     session_data = {
@@ -65,7 +77,7 @@ def save_session(phone_number, first_name, last_name, email_log, email_pass, act
         'email_password': email_pass,
         'activation_cost': activation_cost,
         'device_model': device_model,
-        'android': android_v,
+        'android': "Android " + android_v,
         'telegram_version': tg_v,
         'system_lang': system_lang
     }
@@ -109,43 +121,47 @@ def activation_admin(api):
         logging.error(f"Error in activation_admin: {str(e)}")
 
 
+def create_tdata_with_telegram_desktop(telegram: Telegram, phone_number):
+    sessions_dir = os.path.join(os.path.dirname(__file__), 'sessions')
+
+    # Путь для конвертированных TData
+    today = datetime.now().strftime('%Y-%m-%d')
+    converted_base_dir = os.path.join(sessions_dir, 'converted', today)
+    os.makedirs(converted_base_dir, exist_ok=True)
+
+    # Папка для конкретного аккаунта
+    account_dir = os.path.join(converted_base_dir, f'acc_{phone_number}')
+    os.makedirs(account_dir, exist_ok=True)
+
+    tg_app_path = os.path.join(account_dir, 'Telegram.exe')
+    shutil.copy(os.path.join(os.path.dirname(__file__), 'Telegram.exe'), tg_app_path)
+
+    tg_desk = TelegramDesktop(tg_app_path)
+    tg_desk.start_and_enter_number(phone_number)
+    time.sleep(3)
+    code = telegram.read_sms_with_code()
+    tg_desk.enter_code(code)
+    tg_desk.close()
+
+    os.system(f"taskkill /F /IM Telegram.exe")
+    os.remove(tg_app_path)
+
+
 async def create_session_with_telethon(phone_number,
                                        telegram: Telegram,
-                                       api_id=27010756,
-                                       api_hash='533b8b6991170b6bb71a40da6c4094b1',
-                                       device_model='Aspire A715-42G',
-                                       system_version='Windows 10',
-                                       app_version='6.0.2 x64 Microsoft Store',
-                                       sys_lng_code='en',
-                                       lng_code='en',
-                                       proxy_config=None):
+                                       device_model,
+                                       system_version,
+                                       app_version,
+                                       sys_lng_code,
+                                       lng_code,
+                                       api_id=6,
+                                       api_hash='eb06d4abfb49dc3eeb1aeb98ae0f581e'):
     try:
         # Преобразование phone_number в строку и добавление "+" для международного формата
         phone_number = str(phone_number)
         if not phone_number.startswith('+'):
             phone_number = f'+{phone_number}'
         logging.info(f"Processing phone number: {phone_number}")
-
-        # Настройка прокси
-        if proxy_config is None:
-            proxy_config = {
-                'type': 'http',
-                'host': 'quality.proxywing.com',
-                'port': '8888',
-                'username': 'pkg-private2-country-us',
-                'password': '6dcxh3l94e2ibb7g'
-            }
-
-        proxy = None
-        if proxy_config['type']:
-            proxy_type = socks.HTTP if proxy_config['type'].lower() == 'http' else socks.SOCKS5
-            proxy = (
-                proxy_type,
-                proxy_config['host'],
-                int(proxy_config['port']),
-                proxy_config['username'] or None,
-                proxy_config['password'] or None
-            )
 
         # Формирование пути для файла сессии
         today = datetime.now().strftime('%Y-%m-%d')
@@ -155,15 +171,14 @@ async def create_session_with_telethon(phone_number,
         session_path = os.path.join(converted_folder, session_file_name)
 
         # Создание клиента Telethon
-        await check_ip()
-        client = TelegramClient(session=session_path, api_id=api_id, api_hash=api_hash, proxy=proxy,
+        client = TelegramClient(session=session_path, api_id=api_id, api_hash=api_hash,
                                 device_model=device_model, system_version=system_version,
                                 app_version=app_version, system_lang_code=sys_lng_code,
                                 lang_code=lng_code)
         await client.connect()
 
         # Запрос кода
-        res = await client.send_code_request(phone_number)
+        await client.send_code_request(phone_number)
         logging.info(f"Code requested for {phone_number}")
 
         code = telegram.read_sms_with_code()
@@ -329,7 +344,6 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SMSAPI, first_names, la
 
 def register_account(device_config, sms_api_key_path, first_names, last_names, index):
     telegram = None
-    vpn = None
     sms_activate = None
     activation_id = None
 
@@ -352,7 +366,12 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
 
         sms_activate = SMSAPI(api_key_path=sms_api_key_path)
         onion = Onion()
+
+        logging.info("Starting reset device data...")
+        reset_telegram_data(telegram.udid)
+
         vpn = VPN()
+        vpn.reconnection()
 
         telegram.start()
         telegram.click_start_messaging()
@@ -428,11 +447,7 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
         time.sleep(2)
         telegram.click_element(By.XPATH, telegram.ALLOW_BTN)
 
-        transfer_dat_session()
-        convert_dat_to_session(phone_number)
-
-        reset_telegram_data(telegram.udid)
-        vpn.reconnection()
+        create_tdata_with_telegram_desktop(telegram, phone_number)
         return True
 
     except Exception as e:
@@ -441,10 +456,8 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
         return False
     finally:
         if telegram is not None:
-            reset_telegram_data(telegram.udid)
             telegram.close()
         activation_admin(sms_activate)
-        vpn.reconnection()
 
 
 def get_device_config(num_threads, is_physical):
@@ -518,19 +531,19 @@ def main():
         return
 
     registered_accounts = 0
+    attempt = 0
     device_config = devices[0]  # Only one device config
 
     # Sequential execution for each account
-    for i in range(num_accounts):
-        if registered_accounts >= num_accounts:
-            break
-        logging.info(f"Attempting to register account {i + 1}")
-        success = register_account(device_config, sms_api_key_path, first_names, last_names, i + 1)
+    while registered_accounts < num_accounts:
+        attempt += 1
+        logging.info(f"Attempting to register account {attempt}")
+        success = register_account(device_config, sms_api_key_path, first_names, last_names, attempt)
         if success:
             registered_accounts += 1
             logging.info(f"Account registration successful. Total successful: {registered_accounts}/{num_accounts}")
         else:
-            logging.error(f"Account registration failed for account {i + 1}")
+            logging.error(f"Account registration failed for account {attempt}")
 
     # Close emulator if used
     if not is_physical:

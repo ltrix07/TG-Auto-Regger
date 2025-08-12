@@ -350,7 +350,7 @@ class Telegram(Emulator):
         self.send_keys(By.XPATH, self.LAST_NAME_FIELD, last_name, timeout=2)
         self.click_element(By.XPATH, self.DONE_BTN, timeout=2)
 
-    def read_sms_with_code(self, timeout=60):
+    def read_sms_with_code(self, timeout=120):
         telegram_chat = '//android.view.ViewGroup'
         message_xpath = '//android.view.ViewGroup[contains(@text, "Код для входа в Telegram: ")]'
         if self.check_element(By.XPATH, telegram_chat, timeout):

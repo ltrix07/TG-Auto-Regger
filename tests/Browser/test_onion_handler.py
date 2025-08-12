@@ -1,4 +1,4 @@
-from auto_reger.onion_handler import Onion
+from auto_reger.app_handler import Onion
 
 
 def start_page():

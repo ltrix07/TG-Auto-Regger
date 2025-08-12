@@ -1,6 +1,7 @@
 import os
 import re
 import asyncio
+import sys
 import logging
 import subprocess
 from datetime import datetime
@@ -12,13 +13,11 @@ from telethon.sync import TelegramClient
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
 
-API_ID = 6
-API_HASH = 'eb06d4abfb49dc3eeb1aeb98ae0f581e'
-
-
 def transfer_dat_session():
-    """Переносит tgnet.dat и userconfig.xml из эмулятора через интерактивную сессию."""
-    dest_folder = os.path.join(os.path.dirname(__file__), 'sessions', 'dat')
+    script_path = os.path.abspath(sys.argv[0])
+    script_dir = os.path.dirname(script_path)
+
+    dest_folder = os.path.join(script_dir, 'sessions', 'dat')
     os.makedirs(dest_folder, exist_ok=True)
     temp_dir = '/sdcard/'
 
@@ -66,11 +65,14 @@ def transfer_dat_session():
 
 
 def convert_dat_to_session(phone_number):
-    tgnet_path = os.path.join(os.path.dirname(__file__), 'sessions', 'dat', 'tgnet.dat')
-    config_path = os.path.join(os.path.dirname(__file__), 'sessions', 'dat', 'userconfing.xml')
+    script_path = os.path.abspath(sys.argv[0])
+    script_dir = os.path.dirname(script_path)
+
+    tgnet_path = os.path.join(script_dir, 'sessions', 'dat', 'tgnet.dat')
+    config_path = os.path.join(script_dir, 'sessions', 'dat', 'userconfing.xml')
 
     today = datetime.now().strftime('%Y-%m-%d')
-    converted_folder = os.path.join(os.path.dirname(__file__), 'sessions', 'converted', today)
+    converted_folder = os.path.join(script_dir, 'sessions', 'converted', today)
     os.makedirs(converted_folder, exist_ok=True)
 
     session_file_name = f'acc_{phone_number}.session'
@@ -112,7 +114,9 @@ def convert_dat_to_tdata(phone_number):
         return False
 
 
-async def check_session(session_path, api_id=None, api_hash=None):
+async def check_session(session_path,
+                        api_id=None,
+                        api_hash=None):
     if api_id and api_hash:
         client = TelegramClient(session=session_path, api_id=api_id, api_hash=api_hash)
     else:

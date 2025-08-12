@@ -70,20 +70,16 @@ USER_AGENTS = [
 ]
 
 
-DEVICE_NAMES = [
-    "SM-G991U",   # Samsung Galaxy S21 5G (для США)
-    "SM-G988B",   # Samsung Galaxy S20 Ultra (международная версия)
-    "SM-A525F",   # Samsung Galaxy A52 (международная версия)
-    "SM-A716U",   # Samsung Galaxy A71 5G (для США)
-    "SM-N986B",   # Samsung Galaxy Note20 Ultra 5G (международная версия)
-    "SM-S908E",   # Samsung Galaxy S22 Ultra (международная версия)
-    "SM-F711B",   # Samsung Galaxy Z Flip3 5G (международная версия)
-    "SM-X205",    # Samsung Galaxy Tab A8 10.5 (планшет)
-    "SM-M315F",   # Samsung Galaxy M31 (международная версия)
-    "SM-A125F",   # Samsung Galaxy A12 (международная версия)
-    "SM-G973F",   # Samsung Galaxy S10 (международная версия)
-    "SM-G781B",   # Samsung Galaxy S20 FE 5G (международная версия)
-    "SM-T225",    # Samsung Galaxy Tab A7 Lite (планшет)
+REAL_DEVICES = [
+    {"model": "SM-G960F", "board": "universal9810", "name": "starltexx", "cpu_abi": "arm64-v8a", "hardware": "exynos9810", "full_name": "Samsung Galaxy S9"},
+    {"model": "SM-G965F", "board": "universal9810", "name": "star2ltexx", "cpu_abi": "arm64-v8a", "hardware": "exynos9810", "full_name": "Samsung Galaxy S9+"},
+    {"model": "SM-N960F", "board": "crownlte", "name": "crownltexx", "cpu_abi": "arm64-v8a", "hardware": "exynos9810", "full_name": "Samsung Galaxy Note9"},
+    {"model": "SM-G970F", "board": "beyond0", "name": "beyond0ltexx", "cpu_abi": "arm64-v8a", "hardware": "exynos9820", "full_name": "Samsung Galaxy S10e"},
+    {"model": "SM-G973F", "board": "beyond1", "name": "beyond1ltexx", "cpu_abi": "arm64-v8a", "hardware": "exynos9820", "full_name": "Samsung Galaxy S10"},
+    {"model": "SM-G975F", "board": "beyond2", "name": "beyond2ltexx", "cpu_abi": "arm64-v8a", "hardware": "exynos9820", "full_name": "Samsung Galaxy S10+"},
+    {"model": "SM-A505F", "board": "a50", "name": "a50dd", "cpu_abi": "arm64-v8a", "hardware": "exynos9610", "full_name": "Samsung Galaxy A50"},
+    {"model": "SM-A705F", "board": "a70q", "name": "a70q", "cpu_abi": "arm64-v8a", "hardware": "exynos7904", "full_name": "Samsung Galaxy A70"},
+    {"model": "SM-G781B", "board": "r8q", "name": "r8qxxx", "cpu_abi": "arm64-v8a", "hardware": "qcom", "full_name": "Samsung Galaxy S20 FE 5G"},
 ]
 
 
@@ -138,7 +134,7 @@ def get_device_info(udid):
     output, error = process.communicate()
     device_model = output.decode().strip() if not error else "Unknown"
 
-    process = subprocess.Popen(f'"{adb_path}" -s {udid} shell dumpsys package org.telegram.messenger.web | grep versionName', stdout=subprocess.PIPE,
+    process = subprocess.Popen(f'adb shell "dumpsys package org.telegram.messenger | grep versionName"', stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
     tg_version = output.decode().strip().replace('versionName=', '') if not error else "Unknown"
@@ -162,28 +158,50 @@ def get_device_info(udid):
     output, error = process.communicate()
     abi = output.decode().strip() if not error else "Unknown"
 
+    try:
+        full_model = next(device['full_name'] for device in REAL_DEVICES if device['model'] == device_model)
+    except StopIteration:
+        # Если модель не найдена, выбираем случайную из REAL_DEVICES
+        full_model = random.choice([device['full_name'] for device in REAL_DEVICES])
+        logging.warning(f"Model {device_model} not found in REAL_DEVICES, using random full_name: {full_model}")
+
     print(f"Device Info: Android Version={android_version}, API Level={api_level}, ABI={abi}, Device Model={device_model} "
           f"Telegram Version={tg_version}, System language={sys_lang}")
     return {
         'model': device_model,
-        'android': android_version,
+        'full_model': full_model,
+        'android': 'Android ' + android_version,
         'tg': tg_version,
         'sys_lang': sys_lang
     }
 
 
-def generate_random_imei():
-    imei = "35" + "".join([str(random.randint(0, 9)) for _ in range(12)])
-    digits = [int(d) for d in imei]
-    doubled = [2 * d if i % 2 else d for i, d in enumerate(digits)]
-    summed = sum(d if d < 10 else d - 9 for d in doubled)
-    luhn = (10 - summed % 10) % 10
-    return imei + str(luhn)
+def generate_samsung_imei():
+    tac = "35" + ''.join(random.choice('0123456789') for _ in range(6))  # TAC для Samsung
+    serial = ''.join(random.choice('0123456789') for _ in range(6))
+    temp = tac + serial
+    sum_odd = sum(int(temp[i]) for i in range(0, len(temp), 2))
+    sum_even = sum(int(d) * 2 if int(d) * 2 < 10 else int(d) * 2 - 9 for d in temp[1::2])
+    check_digit = (10 - (sum_odd + sum_even) % 10) % 10
+    return temp + str(check_digit)
+
+
+def generate_samsung_mac():
+    oui_list = ["00:03:7A", "00:0D:6F", "00:12:FB", "00:1D:6A"]  # Реальные OUI Samsung
+    oui = random.choice(oui_list)
+    nic = ':'.join('{:02x}'.format(random.randint(0, 255)) for _ in range(3))
+    return oui + ":" + nic
+
+
+def generate_boottime_sequence():
+    base_time = random.randint(100000000, 500000000)  # Базовое время старта ~100-500 мс
+    delays = sorted([random.randint(10000000, 2000000000) for _ in range(20)])  # Задержки 10-2000 мс, сортировка для последовательности
+    return [str(base_time + delay) for delay in delays]
 
 
 def change_imei():
     try:
-        new_imei = generate_random_imei()
+        new_imei = generate_samsung_imei()
         logging.info(f"Generated IMEI: {new_imei}")
 
         # Установка нового IMEI
@@ -522,73 +540,62 @@ def generate_x509_token():
 
 def reset_telegram_data(udid):
     try:
-        # Перевірка підключених пристроїв
+        # Проверка подключенных устройств
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True)
         if "device" not in result.stdout:
             logging.error("No devices found. Ensure USB Debugging is enabled and device is connected.")
             return False
 
-        # Якщо вказано UDID, використовуємо його
+        # Если указан UDID, используем его
         adb_prefix = ["adb", "-s", udid] if udid else ["adb"]
 
-        # Закриття Telegram
+        # Закрытие Telegram
         subprocess.run(adb_prefix + ["shell", "am", "force-stop", "org.telegram.messenger"], check=True)
         logging.info("Telegram app closed successfully")
 
-        # Очищення даних Telegram
+        # Очистка данных Telegram
         subprocess.run(adb_prefix + ["shell", "pm", "clear", "org.telegram.messenger"], check=True)
         logging.info("Telegram data cleared successfully")
 
-        # Скидання Advertising ID
+        # Сброс Advertising ID
         subprocess.run(adb_prefix + ["shell", "settings", "delete", "secure", "advertising_id"], check=True)
         logging.info("Advertising ID reset successfully")
+
+        # Выбор случайного реального устройства
+        # device = random.choice(REAL_DEVICES)
+        device = REAL_DEVICES[-1]
 
         new_android_id = generate_android_id()
         new_device_id = generate_android_id()
         new_cert = generate_x509_token()
         new_build_id = generate_android_build_id_past()
-        new_mac = generate_mac_address()
-
-        # new_device_name = random.choice(DEVICE_NAMES)
+        new_mac = generate_samsung_mac()
         new_bluetooth_address = ':'.join(['{:02x}'.format(random.randint(0, 255)) for _ in range(6)])
+        boottimes = generate_boottime_sequence()  # Последовательные времена
 
         generate_and_set_user_agent()
         change_setting('secure', 'android_id', new_android_id)
-        change_setting('secure', 'android_id', '$(cat /proc/sys/kernel/random/uuid)')
         change_setting('secure', 'bluetooth_address', new_bluetooth_address)
-        # change_setting('secure', 'bluetooth_name', new_device_name)
         change_setting('secure', 'device_id', new_device_id)
         change_setting('secure', 'config_update_certificate', new_cert)
-#         change_setting('secure', 'device_name', new_device_name)
         change_setting('global', 'database_creation_buildid', new_build_id)
-#         change_setting('global', 'device_name', new_device_name)
-        change_prop('ro.product.cpu.abi', random.choice(['arm64-v8a', 'armeabi-v7a']))
+        change_prop('ro.product.cpu.abi', device['cpu_abi'])
         change_prop('wifi.interface.mac', new_mac)
-        change_prop('ro.boottime.zygote_secondary', generate_number(10))
-        change_prop('ro.boottime.vendor.bluetooth-1-0', generate_number(10))
-        change_prop('ro.boottime.console', generate_number(10))
-        change_prop('ro.boottime.vendor.ril-daemon', generate_number(10))
-        change_prop('ro.boottime.traced', generate_number(10))
-        change_prop('ro.boottime.cameraserver', generate_number(10))
-        change_prop('ro.boottime.hidl_memory', generate_number(10))
-#         change_prop('ro.product.model', new_device_name)
-        change_prop('ro.boottime.ueventd', generate_number(10))
-        change_prop('ro.boottime.vendor.gnss_service', generate_number(10))
-        change_prop('ro.boottime.vendor.audio-hal-2-0', generate_number(10))
-        change_prop('ro.boottime.usbd', generate_number(10))
-        change_prop('ro.boottime.vendor.health-hal-2-0', generate_number(10))
-        change_prop('ro.boottime.tombstoned', generate_number(10))
-        change_prop('ro.boottime.hwservicemanager', generate_number(10))
-        change_prop('ro.boottime.vendor.wifi_hal_legacy', generate_number(10))
-        change_prop('ro.boottime.keystore', generate_number(10))
-        change_prop('ro.boottime.vendor.power-hal-1-1', generate_number(10))
-        change_prop('ro.boottime.mediametrics', generate_number(10))
-        change_prop('ro.boottime.surfaceflinger', generate_number(10))
+        change_prop('ro.hardware', device['hardware'])
+        change_prop('ro.product.model', device['model'])
+        change_prop('ro.product.board', device['board'])
+        change_prop('ro.product.name', device['name'])
+
+        services = [
+            'zygote_secondary', 'vendor.bluetooth-1-0', 'console', 'vendor.ril-daemon', 'traced',
+            'cameraserver', 'hidl_memory', 'ueventd', 'vendor.gnss_service', 'vendor.audio-hal-2-0',
+            'usbd', 'vendor.health-hal-2-0', 'tombstoned', 'hwservicemanager', 'vendor.wifi_hal_legacy',
+            'keystore', 'vendor.power-hal-1-1', 'mediametrics', 'surfaceflinger', 'init.selinux'
+        ]
+        for i, service in enumerate(services):
+            change_prop(f'ro.boottime.{service}', boottimes[i])
+        change_prop('ro.boottime.init', boottimes[-1])  # init последним
         change_prop('persist.netd.stable_secret', generate_stable_secret())
-#         change_prop('ro.product.board', new_device_name)
-        change_prop('ro.boottime.init', generate_number(4))
-        change_prop('ro.boottime.init.selinux', generate_number(2))
-#         change_prop('ro.product.name', new_device_name)
         set_random_timezone()
         change_imei()
 
@@ -602,4 +609,4 @@ def reset_telegram_data(udid):
 
 
 if __name__ == '__main__':
-    change_prop('ro.product.cpu.abi', random.choice(['arm64-v8a', 'armeabi-v7a']))
+    reset_telegram_data('emulator-5554')
