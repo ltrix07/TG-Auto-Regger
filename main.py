@@ -13,7 +13,7 @@ from auto_reger.adb_handler import reset_telegram_data, run_adb_command, get_dev
 from auto_reger.session_converter import transfer_dat_session, convert_dat_to_session
 from telethon import TelegramClient
 from auto_reger.utils import read_json, write_json
-from auto_reger.sms_api import SMSAPI, remove_activation_from_json, save_activation_to_json, can_set_status_8
+from auto_reger.sms_api import SmsApi, remove_activation_from_json, save_activation_to_json, can_set_status_8
 from auto_reger.emulator_handler import Telegram
 from auto_reger.app_handler import Onion, VPN, TelegramDesktop
 from selenium.webdriver.common.by import By
@@ -32,10 +32,11 @@ sys.stdout.reconfigure(encoding='utf-8')
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
 CECH_PATH = './cech.json'
-SESSIONS_DIR = './sessions'
+SESSIONS_DIR = './sessions/JSON'
 MAX_THREADS = 5
-SMS_TIMEOUT = 120  # 2 минуты
-COUNTRY = input('Enter country for registration Telegram account (USA, United Kingdom, etc.): ')
+SMS_TIMEOUT = 120
+COUNTRY = input('Enter country for registration Telegram account (USA, United Kingdom, etc.): ').strip()
+MAX_PRICE = float(input('Enter maximum price: ').strip())
 
 
 def setup_cech():
@@ -77,7 +78,7 @@ def save_session(phone_number, first_name, last_name, email_log, email_pass, act
         'email_password': email_pass,
         'activation_cost': activation_cost,
         'device_model': device_model,
-        'android': "Android " + android_v,
+        'android': android_v,
         'telegram_version': tg_v,
         'system_lang': system_lang
     }
@@ -138,9 +139,10 @@ def create_tdata_with_telegram_desktop(telegram: Telegram, phone_number):
 
     tg_desk = TelegramDesktop(tg_app_path)
     tg_desk.start_and_enter_number(phone_number)
-    time.sleep(3)
+    time.sleep(5)
     code = telegram.read_sms_with_code()
     tg_desk.enter_code(code)
+    time.sleep(3)
     tg_desk.close()
 
     os.system(f"taskkill /F /IM Telegram.exe")
@@ -203,9 +205,8 @@ async def create_session_with_telethon(phone_number,
         return None, None, str(e)
 
 
-def phone_number_send(emulator_obj: Telegram, sms_obj: SMSAPI, not_code=False):
+def phone_number_send(emulator_obj: Telegram, sms_obj: SmsApi, not_code=False):
     attempt = 0
-    wait_time = 60
     status = None
     activation_id = None
     number_price = None
@@ -228,7 +229,11 @@ def phone_number_send(emulator_obj: Telegram, sms_obj: SMSAPI, not_code=False):
                 not_code = False
 
             if new_number:
-                num_data = sms_obj.verification_number('tg', COUNTRY, 'true')
+                max_price = None
+                if 'grizzly' not in sms_obj.api_url:
+                    max_price = MAX_PRICE
+                num_data = sms_obj.verification_number('tg', COUNTRY, max_price)
+                print(num_data)
                 phone_number = num_data.get('phoneNumber')
                 activation_id = num_data.get('activationId')
                 number_price = num_data.get('activationCost')
@@ -251,7 +256,7 @@ def phone_number_send(emulator_obj: Telegram, sms_obj: SMSAPI, not_code=False):
             emulator_obj.send_number(phone_number)
             time.sleep(random.uniform(1, 2))
 
-            if emulator_obj.wait_for_element_to_disappear(By.XPATH, emulator_obj.COUNTRY_CODE_INPUT, timeout=wait_time):
+            if emulator_obj.wait_for_element_to_disappear(By.XPATH, emulator_obj.COUNTRY_CODE_INPUT, timeout=180):
                 if emulator_obj.check_element(By.XPATH, '//android.widget.TextView[@text="Check your Telegram messages"]', timeout=1) or \
                         emulator_obj.check_element(By.XPATH, emulator_obj.CHECK_EMAIL_TEXT, timeout=1):
                     logging.info(f"Номер {phone_number} уже зарегистрирован в Telegram")
@@ -288,7 +293,7 @@ def phone_number_send(emulator_obj: Telegram, sms_obj: SMSAPI, not_code=False):
             activation_admin(sms_obj)
 
 
-def check_2fa(telegram: Telegram, onion: Onion, sms_api: SMSAPI, first_names, last_names, phone_number, activation_id):
+def check_2fa(telegram: Telegram, onion: Onion, sms_api: SmsApi, first_names, last_names, phone_number, activation_id):
     if telegram.check_element(By.XPATH, telegram.NAME_FIELD, timeout=5):
         first_name = random.choice(first_names) if first_names else generate_random_string(6)
         last_name = random.choice(last_names) if last_names else generate_random_string(8)
@@ -325,12 +330,12 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SMSAPI, first_names, la
 
     if telegram.check_element(By.XPATH, telegram.CHECK_EMAIL_TEXT, timeout=2):
         code = onion.extract_code(second_req=True)
-        run_adb_command(f'adb shell input text "{code}"')
+        run_adb_command(f'input text "{code}"')
 
     if telegram.check_element(By.XPATH, telegram.ENTER_CODE_TEXT, timeout=2):
         sms_api.setStatus(activation_id, status=3)
         code = sms_api.check_verif_status(activation_id, SMS_TIMEOUT)
-        run_adb_command(f'adb shell input text "{code}"')
+        run_adb_command(f'input text "{code}"')
 
     if telegram.check_element(By.XPATH, telegram.NAME_FIELD, timeout=5):
         first_name = random.choice(first_names) if first_names else generate_random_string(6)
@@ -342,7 +347,7 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SMSAPI, first_names, la
         return None, None
 
 
-def register_account(device_config, sms_api_key_path, first_names, last_names, index):
+def register_account(device_config, sms_srvice, sms_api_key_path, first_names, last_names, index):
     telegram = None
     sms_activate = None
     activation_id = None
@@ -364,14 +369,14 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
                 raise Exception("No UDID detected after starting emulator")
             logging.info(f"Using UDID: {udid} for account {index}")
 
-        sms_activate = SMSAPI(api_key_path=sms_api_key_path)
+        sms_activate = SmsApi(service=sms_srvice, api_key_path=sms_api_key_path)
         onion = Onion()
 
         logging.info("Starting reset device data...")
         reset_telegram_data(telegram.udid)
 
-        vpn = VPN()
-        vpn.reconnection()
+        # vpn = VPN()
+        # vpn.reconnection()
 
         telegram.start()
         telegram.click_start_messaging()
@@ -399,21 +404,28 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
 
             email_code = onion.extract_code()
             if email_code:
-                run_adb_command(f'adb shell input text "{email_code}"')
+                run_adb_command(f'input text "{email_code}"')
                 logging.info(f"Email verification code entered: {email_code}")
             else:
                 logging.error("Failed to get email verification code")
                 activation_admin(sms_activate)
                 return False
 
-        sms_code = sms_activate.check_verif_status(activation_id, timeout=SMS_TIMEOUT)
-        if sms_code:
-            run_adb_command(f'adb shell input text "{sms_code}"')
-            logging.info(f"SMS code entered: {sms_code}")
-        else:
-            logging.error("Failed to get SMS code")
-            activation_admin(sms_activate)
-            return False
+        sms_timeout = SMS_TIMEOUT
+        while True:
+            sms_code = sms_activate.check_verif_status(activation_id, timeout=sms_timeout)
+            if sms_code:
+                run_adb_command(f'input text "{sms_code}"')
+                logging.info(f"SMS code entered: {sms_code}")
+                break
+            else:
+                if telegram.check_element(By.XPATH, telegram.GET_CODE_VIA_SMS, timeout=1):
+                    telegram.click_element(By.XPATH, telegram.GET_CODE_VIA_SMS)
+                    sms_timeout = 90
+                else:
+                    logging.error("Failed to get SMS code")
+                    activation_admin(sms_activate)
+                    return False
 
         first_name, last_name = check_2fa(telegram,
                                           onion,
@@ -423,7 +435,7 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
                                           phone_number,
                                           activation_id)
         
-        if not first_name and not last_name:
+        if not first_name and not last_name and not telegram.check_element(By.XPATH, telegram.MESSAGES_BOX, timeout=2):
             logging.error("Failed to reset account")
             activation_admin(sms_activate)
             return False
@@ -442,10 +454,11 @@ def register_account(device_config, sms_api_key_path, first_names, last_names, i
         logging.info(f"Account registered successfully: {phone_number}")
         time.sleep(5)
 
-        telegram.click_element(By.XPATH, telegram.CONTINUE_BTN, timeout=10)
-        telegram.click_element(By.XPATH, telegram.ALLOW_BTN)
+        telegram.click_element(By.XPATH, telegram.ACCEPT_BTN, timeout=3)
+        telegram.click_element(By.XPATH, telegram.CONTINUE_BTN, timeout=5)
+        telegram.click_element(By.XPATH, telegram.ALLOW_BTN, timeout=5)
         time.sleep(2)
-        telegram.click_element(By.XPATH, telegram.ALLOW_BTN)
+        telegram.click_element(By.XPATH, telegram.ALLOW_BTN, timeout=5)
 
         create_tdata_with_telegram_desktop(telegram, phone_number)
         return True
@@ -504,9 +517,10 @@ def get_device_config(num_threads, is_physical):
 def main():
     cech_data = setup_cech()
 
-    sms_api_key_path = cech_data.get('sms_api_key_path', input("Enter path for file with API key for SMS service: ").strip())
+    sms_api_key_path = input("Enter path for file with API key for SMS service: ").strip()
     if not sms_api_key_path:
         sms_api_key_path = 'sms_activate_api.txt'
+    sms_service = input("Enter sms service (sms-activate, grizzly-sms, etc.): ")
     cech_data['sms_api_key_path'] = sms_api_key_path
     write_json(cech_data, CECH_PATH)
 
@@ -538,7 +552,7 @@ def main():
     while registered_accounts < num_accounts:
         attempt += 1
         logging.info(f"Attempting to register account {attempt}")
-        success = register_account(device_config, sms_api_key_path, first_names, last_names, attempt)
+        success = register_account(device_config, sms_service, sms_api_key_path, first_names, last_names, attempt)
         if success:
             registered_accounts += 1
             logging.info(f"Account registration successful. Total successful: {registered_accounts}/{num_accounts}")

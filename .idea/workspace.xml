@@ -4,44 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="update MAX">
+    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="add capcha loger; TData creator by Telegram desktop app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/smsactivate/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/smsactivate/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/activations.json" beforeDir="false" afterPath="$PROJECT_DIR$/activations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/adb_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/adb_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/app_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/app_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/emulator_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/emulator_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/onion_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/app_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/session_converter.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/session_converter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/converted/2025-08-09/acc_12252279805.session" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/converted/2025-08-09/acc_13093096721.session" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/converted/2025-08-09/acc_17373691792.session" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/converted/2025-08-09/acc_19208619234.session" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/dat/tgnet.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/dat/userconfing.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/lzt_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/lzt_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/sms_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/sms_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/12137350845.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/12252279805.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/13074108643.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/13093096721.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/13256998439.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/13376100949.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/13513614569.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/13863913919.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/14847365653.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/15674661314.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/16074694846.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/17373691792.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/17722790922.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/17798671575.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/18383884956.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/18402473431.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/18459897501.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/18565697082.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/19208619234.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/19302302970.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sessions/19793632454.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Browser/test_onion_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Browser/test_onion_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SMSAPI/qty_of_numbers.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SMSAPI/qty_of_numbers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SMSAPI/test_check_verif_status.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SMSAPI/test_check_verif_status.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SMSAPI/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SMSAPI/test_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/SMSAPI/test_verification_number.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/SMSAPI/test_verification_number.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +41,13 @@
     &quot;assignee&quot;: &quot;Bob-Marlow&quot;
   }
 }</component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="7c110268-7d66-4637-a423-0e36d46eb677" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/parkouss/funq&quot;,
-    &quot;accountId&quot;: &quot;b259a949-21b7-435e-b184-868d6db32ab8&quot;
+    &quot;url&quot;: &quot;https://github.com/ltrix07/TG-Auto-Regger.git&quot;,
+    &quot;accountId&quot;: &quot;7c110268-7d66-4637-a423-0e36d46eb677&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -116,7 +96,9 @@
     &quot;Python.Session Converter.executor&quot;: &quot;Run&quot;,
     &quot;Python.adb_handler.executor&quot;: &quot;Run&quot;,
     &quot;Python.app_handler (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_handler.executor&quot;: &quot;Run&quot;,
     &quot;Python.dergatel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.emulator_handler.executor&quot;: &quot;Run&quot;,
     &quot;Python.gild.executor&quot;: &quot;Run&quot;,
     &quot;Python.lzt_api.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
@@ -124,6 +106,8 @@
     &quot;Python.qty_of_numbers.executor&quot;: &quot;Run&quot;,
     &quot;Python.sdfdf.executor&quot;: &quot;Run&quot;,
     &quot;Python.session_converter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.sms_api.executor&quot;: &quot;Run&quot;,
+    &quot;Python.statistic_collector.executor&quot;: &quot;Run&quot;,
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_change_status.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_converter.executor&quot;: &quot;Run&quot;,
@@ -133,27 +117,27 @@
     &quot;Python.test_start_emulator.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/sessions/converted/2025-08-14/acc_12293734582&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_12293734582" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_14798478711" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_12254203536" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_18126966983" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\tests\Session Converter" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reg\messages" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reg\triggers" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reg\buttons" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-12\TG_DESK_LOG-USA_VPN" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-11\DAT_SESSION-USA_VPN" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-11\TG_DESK_LOG-USA_VPN" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-11\TD_DESK_LOG-UA_MOBILE" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-17\Turkey" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-17\USA" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-15\USA" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\JSON" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app_handler (1)">
+  <component name="RunManager" selected="Python.main">
     <configuration name="adb_handler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TG-Auto-Reg" />
       <option name="ENV_FILES" value="" />
@@ -176,28 +160,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="app_handler (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="TG-Auto-Reg" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/app_handler.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="app_handler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TG-Auto-Reg" />
       <option name="ENV_FILES" value="" />
@@ -211,7 +173,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\app_handler.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/app_handler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -242,7 +204,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="session_converter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="sms_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TG-Auto-Reg" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -255,7 +217,29 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/session_converter.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/sms_api.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="statistic_collector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/statistic_collector.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -306,21 +290,21 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test_converter" />
-      <item itemvalue="Python.app_handler (1)" />
-      <item itemvalue="Python.app_handler" />
       <item itemvalue="Python.adb_handler" />
+      <item itemvalue="Python.app_handler" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.session_converter" />
+      <item itemvalue="Python.sms_api" />
+      <item itemvalue="Python.statistic_collector" />
+      <item itemvalue="Python.test_converter" />
       <item itemvalue="Python tests.pytest in C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.app_handler (1)" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.adb_handler" />
         <item itemvalue="Python.app_handler" />
-        <item itemvalue="Python.session_converter" />
+        <item itemvalue="Python.adb_handler" />
+        <item itemvalue="Python.statistic_collector" />
+        <item itemvalue="Python.sms_api" />
       </list>
     </recent_temporary>
   </component>
@@ -364,11 +348,31 @@
       <option name="project" value="LOCAL" />
       <updated>1754845204336</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add capcha loger; TData creator by Telegram desktop app">
+      <option name="closed" value="true" />
+      <created>1755028751580</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1755028751580</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update MAX" />
-    <option name="LAST_COMMIT_MESSAGE" value="update MAX" />
+    <MESSAGE value="add capcha loger; TData creator by Telegram desktop app" />
+    <option name="LAST_COMMIT_MESSAGE" value="add capcha loger; TData creator by Telegram desktop app" />
   </component>
 </project>

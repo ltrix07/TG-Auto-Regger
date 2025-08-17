@@ -85,11 +85,38 @@ REAL_DEVICES = [
 
 def run_adb_command(command):
     try:
-        result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
-        return result.stdout
+        # Установка нового IMEI
+        process = subprocess.Popen(
+            'adb shell',
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            shell=True
+        )
+
+        # Отправляем команды построчно
+        commands = [
+            'su',
+            command,
+            'exit',
+            'exit'
+        ]
+
+        try:
+            stdout, stderr = process.communicate('\n'.join(commands), timeout=10)
+            if stderr:
+                print(f"Ошибка смены IMEI: {stderr}")
+                raise subprocess.CalledProcessError(process.returncode, commands, stderr=stderr)
+
+            logging.info(f"ADB command ran: {stdout}")
+        except subprocess.TimeoutExpired as e:
+            logging.error(f"Ошибка ADB команды: {e}")
+            process.kill()
+            raise
     except subprocess.CalledProcessError as e:
-        print(f"Ошибка ADB: {e.stderr}")
-        raise
+        logging.error(f"Ошибка ADB команды: {e.stderr}")
+        raise RuntimeError(f"Ошибка ADB команды: {e.stderr}")
 
 
 def connect_adb(udid, max_attempts=3):
@@ -563,7 +590,7 @@ def reset_telegram_data(udid):
 
         # Выбор случайного реального устройства
         # device = random.choice(REAL_DEVICES)
-        device = REAL_DEVICES[-1]
+        device = random.choice(REAL_DEVICES)
 
         new_android_id = generate_android_id()
         new_device_id = generate_android_id()
@@ -579,6 +606,9 @@ def reset_telegram_data(udid):
         change_setting('secure', 'device_id', new_device_id)
         change_setting('secure', 'config_update_certificate', new_cert)
         change_setting('global', 'database_creation_buildid', new_build_id)
+        change_prop('persist.sys.language', 'en')
+        change_prop('persist.sys.country', 'US')
+        change_prop('persist.sys.locale', 'en-US')
         change_prop('ro.product.cpu.abi', device['cpu_abi'])
         change_prop('wifi.interface.mac', new_mac)
         change_prop('ro.hardware', device['hardware'])
@@ -598,6 +628,7 @@ def reset_telegram_data(udid):
         change_prop('persist.netd.stable_secret', generate_stable_secret())
         set_random_timezone()
         change_imei()
+        run_adb_command('am broadcast -a android.intent.action.LOCALE_CHANGED')
 
         return True
     except subprocess.CalledProcessError as e:

@@ -67,36 +67,8 @@ class App:
                     print("Failed to start Chrome or find window")
                     raise RuntimeError("Chrome not started or window not found")
             except Exception as e:
-                print(f"Error starting Chrome: {str(e)}")
+                print(f"Error starting {self.handle_title}: {str(e)}")
                 raise
-
-    @staticmethod
-    def is_element(window: Application, control_type: str, title: str = None,
-                   title_re: str = None, auto_id: str = None, timeout: float = None) -> bool:
-        try:
-            main_dlg = window.top_window()
-            search_criteria = {'control_type': control_type}
-            if title is not None:
-                search_criteria['title'] = title
-            if title_re is not None:
-                search_criteria['title_re'] = title_re
-            if auto_id is not None:
-                search_criteria['auto_id'] = auto_id
-
-            if len(search_criteria) == 1:
-                return False
-
-            if timeout:
-                end_time = time.time() + timeout
-                while time.time() < end_time:
-                    if main_dlg.child_window(**search_criteria).exists():
-                        return True
-                    time.sleep(0.5)
-                return False
-
-            return main_dlg.child_window(**search_criteria).exists()
-        except Exception:
-            return False
 
     @staticmethod
     def get_element_by_position(window, control_type, l, t, r, b):
@@ -139,8 +111,27 @@ class Onion(App):
             window.wait('visible', timeout=20)
             window.set_focus()
 
-            capcha_checkbox = window.child_window(title='Подтвердите, что вы человек', control_type='CheckBox')
-            capcha_checkbox.wait('visible', timeout=30)
+            # Цикл для ожидания чекбокса с перепроверкой окна
+            start_time = time.time()
+            while time.time() - start_time < 30:
+                if not window.exists():
+                    logging.info("Окно капчи исчезло во время ожидания")
+                    return False
+
+                capcha_checkbox = window.child_window(title='Подтвердите, что вы человек', control_type='CheckBox')
+                if capcha_checkbox.exists() and capcha_checkbox.is_visible():
+                    break
+
+                time.sleep(3)  # Перепроверка каждые 3 секунды
+
+            else:
+                logging.error("Таймаут ожидания чекбокса капчи")
+                return False
+
+            # Дополнительная проверка перед кликом
+            if not window.exists():
+                logging.info("Окно капчи исчезло перед кликом")
+                return False
 
             rect = capcha_checkbox.rectangle()
             center_x = (rect.left + rect.right) // 2 + random.randint(-5, 5)
@@ -155,7 +146,7 @@ class Onion(App):
 
             return True
         except ElementNotFoundError as e:
-            logging.error(f"ElementNotFoundError: {e}")
+            logging.error("ElementNotFoundError: {e}")
             if window:
                 window.print_control_identifiers()
             return False
@@ -168,14 +159,35 @@ class Onion(App):
                 window.print_control_identifiers()
             return False
 
+    @staticmethod
+    def _is_capcha_window_present(timeout=10):
+        try:
+            end_time = time.time() + timeout
+            while time.time() < end_time:
+                windows = findwindows.find_windows(title_re="Один момент.*Google Chrome.*")
+                if windows:
+                    logging.info(f"Found capcha window: {windows}")
+                    return True
+                time.sleep(0.5)
+            logging.info("Capcha window not found in available windows")
+            return False
+        except Exception as e:
+            logging.error(f"Error checking capcha window: {str(e)}")
+            return False
+
     def reg_and_login(self, username, password):
         try:
             self.window = self.app.window(title_re="Onion Mail.*Google Chrome.*")
-            self.window.wait("visible", timeout=20)
+            self.window.wait("ready", timeout=20)
             self.window.set_focus()
             logging.info("Найдено окно браузера с открытой вкладкой почты.")
 
-            if self.is_element(self.window, title=' INBOX', control_type='Text'):
+            try:
+                is_inbox_txt = self.window.child_window(title=' INBOX', control_type='Text').exists(timeout=1)
+            except ElementNotFoundError:
+                is_inbox_txt = False
+
+            if is_inbox_txt:
                 buttons = self.window.descendants(control_type="Button")
                 target_btn = None
                 for btn in buttons:
@@ -201,10 +213,18 @@ class Onion(App):
             create_acc_btn.invoke()
             logging.info("Найдена форма для создания нового аккаунта.")
 
-            if self.capcha_hack():
-                logging.info("Capcha passed!")
+            if self._is_capcha_window_present(timeout=10):
+                logging.info("Обнаружено окно капчи, запускаем capcha_hack")
+                if self.capcha_hack():
+                    logging.info("Capcha passed!")
+                else:
+                    logging.error("Capcha hack failed")
             else:
-                logging.info("Capcha not found.")
+                logging.info("Capcha not found, proceeding with login")
+
+            # self.window = self.app.window(title_re="Onion Mail.*Google Chrome.*")
+            # self.window.wait("ready", timeout=20)
+            # self.window.set_focus()
 
             name_field = self.window.child_window(control_type="Edit", auto_id="name")
             name_field.wait("ready", timeout=60)
@@ -246,30 +266,38 @@ class Onion(App):
             logging.info("Новый аккаунт почты создан")
             time.sleep(5)
 
-            username_field_log = self.window.child_window(control_type="Edit", auto_id="username")
-            username_field_log.wait("visible", timeout=60)
-            username_field_log.set_text("")
-            username_field_log.type_keys(username, with_spaces=True)
-            logging.info("Имя введено")
-
-            password_field_log = self.window.child_window(control_type="Edit", auto_id="password")
-            password_field_log.wait("visible", timeout=60)
-            password_field_log.set_text("")
-            password_field_log.type_keys(password, with_spaces=True)
-            logging.info("Пароль введен")
-
             try:
-                login_btn = self.window.child_window(control_type="Button", title=' LOG IN')
-                login_btn.wait("visible", timeout=1)
-            except Exception as e:
-                print(f"Not found: {e}")
-                login_btn = self.window.child_window(control_type="Button", title='LOG IN')
-                login_btn.wait("visible", timeout=1)
-            time.sleep(1)
-            login_btn.invoke()
-            logging.info("Вход в аккаунт почты выполнен успешно")
+                is_login_txt = self.window.child_window(title=' Log in', control_type='Text').exists(timeout=10)
+            except ElementNotFoundError:
+                is_login_txt = False
 
-            return True
+            if is_login_txt:
+                username_field_log = self.window.child_window(control_type="Edit", auto_id="username")
+                username_field_log.wait("visible", timeout=60)
+                username_field_log.set_text("")
+                username_field_log.type_keys(username, with_spaces=True)
+                logging.info("Имя введено")
+
+                password_field_log = self.window.child_window(control_type="Edit", auto_id="password")
+                password_field_log.wait("visible", timeout=60)
+                password_field_log.set_text("")
+                password_field_log.type_keys(password, with_spaces=True)
+                logging.info("Пароль введен")
+
+                try:
+                    login_btn = self.window.child_window(control_type="Button", title=' LOG IN')
+                    login_btn.wait("visible", timeout=1)
+                except Exception as e:
+                    print(f"Not found: {e}")
+                    login_btn = self.window.child_window(control_type="Button", title='LOG IN')
+                    login_btn.wait("visible", timeout=1)
+                time.sleep(1)
+                login_btn.invoke()
+                logging.info("Вход в аккаунт почты выполнен успешно")
+
+                return True
+            else:
+                return False
 
         except ElementNotFoundError as e:
             print(f"ElementNotFoundError: {e}")

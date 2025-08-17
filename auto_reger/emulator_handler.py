@@ -4,6 +4,9 @@ import time
 import re
 import random
 import logging
+import pytesseract
+import os
+from PIL import Image
 from auto_reger.adb_handler import connect_adb, get_device_info, run_adb_command
 from appium.webdriver.appium_service import AppiumService
 from appium.options.common import AppiumOptions
@@ -21,35 +24,6 @@ logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s 
 class Emulator:
     adb_user = input('ADB path (default: C:\\Android\\platform-tools\\adb.exe): ')
     ADB_PATH = r"C:\Android\platform-tools\adb.exe" if adb_user == '' else adb_user
-
-    START_MESSAGING_BTN = '//android.widget.TextView[@text="Start Messaging"]'
-    CONTINUE_ENGLISH = '//android.widget.TextView[@text="Continue in English"]'
-    COUNTRY_CODE_INPUT = '//android.widget.EditText[@content-desc="Country code"]'
-    PHONE_NUMBER_INPUT = '//android.widget.EditText[@content-desc="Phone number"]'
-    DONE_BTN = '//android.widget.FrameLayout[@content-desc="Done"]/android.view.View'
-    YES_BTN = '//android.widget.TextView[@text="Yes"]'
-    EMAIL_INPUT = '//android.widget.EditText'
-    CONTINUE_BTN = '//android.widget.TextView[@text="Continue"]'
-    ALLOW_BTN = '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]'
-    ALLOW_CALLING_MESSAGE = '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]'
-    ALLOW_CALLING_LIST_MESSAGE = ('//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]')
-    TELEGRAM_APP = '//android.widget.TextView[@content-desc="Telegram"]'
-    NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.widget.EditText'
-    LAST_NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[2]/android.widget.EditText'
-    MENU_BTN = '//android.widget.ImageView[@content-desc="Open navigation menu"]'
-    SETTINGS_BTN = '(//android.widget.TextView[@text="Settings"])[1]/android.view.View'
-    MORE_OPTIONS = '//android.widget.ImageButton[@content-desc="More options"]/android.widget.ImageView'
-    LOG_OUT_OPTIONS = '//android.widget.TextView[@text="Log Out"]'
-    LOG_OUT_BTN = '(//android.widget.TextView[@text="Log Out"])[2]'
-    CHAT_WITH_TELEGRAM = '//android.view.ViewGroup'
-    NUMBER_IS_BANNED = '//android.widget.TextView[@text="This phone number is banned."]'
-    OK_BTN = '//android.widget.TextView[@text="OK"]'
-    PASS_NEED_TEXT = '//android.widget.TextView[@text="Two-Step Verification enabled. Your account is protected with an additional password."]'
-    FORGOT_PASS_BTN = '//android.widget.TextView[@text="Forgot password?"]'
-    RESET_ACC_BTN = '//android.widget.TextView[@text="Reset account"]'
-    CHECK_EMAIL_TEXT = '//android.widget.TextView[@text="Check Your Email"]'
-    TOO_MANY_ATTEMPTS = '//android.widget.TextView[@text="Too many attempts, please try again later."]'
-    ENTER_CODE_TEXT = '//android.widget.TextView[@text="Enter code"]'
 
     def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None, physical_device=False):
         self.udid = udid
@@ -89,6 +63,8 @@ class Emulator:
         try:
             self.appium_service.start(args=['--address', '127.0.0.1', '--port', str(appium_port)])
             logging.info(f"Appium service started on port {appium_port}")
+            import time
+            time.sleep(10)  # Добавляем задержку
         except Exception as e:
             logging.error(f"Failed to start Appium service: {e}")
             raise RuntimeError(f"Failed to start Appium service: {e}")
@@ -128,7 +104,7 @@ class Emulator:
         output, error = process.communicate()
         return app_package in output.decode()
 
-    def do_activity(self, app_package=None, app_activity=None):
+    def do_activity(self, app_package=None, app_activity=None, capabilities=None):
         if not self.udid:
             logging.error("UDID not set. Start emulator first.")
             raise RuntimeError("UDID not set. Start emulator first.")
@@ -136,19 +112,20 @@ class Emulator:
             logging.error(f"Application {app_package} is not installed on {self.udid}")
             raise RuntimeError(f"Application {app_package} is not installed on {self.udid}")
 
-        capabilities = {
-            "platformName": "Android",
-            "appium:deviceName": self.udid,
-            "appium:udid": self.udid,
-            "appium:noReset": False,
-            "appium:automationName": "UiAutomator2",
-            "appium:newCommandTimeout": 300,
-            "appium:adbExecTimeout": 60000,
-            "appium:forceAppiumServerApkInstall": True,
-            "appium:enforceAppInstall": True,
-            "appium:skipDeviceInitialization": True,
-            "appium:enforceXPath1": True
-        }
+        if not capabilities:
+            capabilities = {
+                "platformName": "Android",
+                "appium:deviceName": self.udid,
+                "appium:udid": self.udid,
+                "appium:noReset": False,
+                "appium:automationName": "UiAutomator2",
+                "appium:newCommandTimeout": 300,
+                "appium:adbExecTimeout": 60000,
+                "appium:forceAppiumServerApkInstall": True,
+                "appium:enforceAppInstall": True,
+                "appium:skipDeviceInitialization": True,
+                "appium:enforceXPath1": True
+            }
 
         if app_package and app_activity:
             capabilities['appium:appPackage'] = app_package
@@ -249,6 +226,39 @@ class Emulator:
 
 
 class Telegram(Emulator):
+    START_MESSAGING_BTN = '//android.widget.TextView[@text="Start Messaging"]'
+    CONTINUE_ENGLISH = '//android.widget.TextView[@text="Continue in English"]'
+    COUNTRY_CODE_INPUT = '//android.widget.EditText[@content-desc="Country code"]'
+    PHONE_NUMBER_INPUT = '//android.widget.EditText[@content-desc="Phone number"]'
+    DONE_BTN = '//android.widget.FrameLayout[@content-desc="Done"]/android.view.View'
+    YES_BTN = '//android.widget.TextView[@text="Yes"]'
+    EMAIL_INPUT = '//android.widget.EditText'
+    CONTINUE_BTN = '//android.widget.TextView[@text="Continue"]'
+    ALLOW_BTN = '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]'
+    ALLOW_CALLING_MESSAGE = '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]'
+    ALLOW_CALLING_LIST_MESSAGE = (
+        '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]')
+    TELEGRAM_APP = '//android.widget.TextView[@content-desc="Telegram"]'
+    NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.widget.EditText'
+    LAST_NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[2]/android.widget.EditText'
+    MENU_BTN = '//android.widget.ImageView[@content-desc="Open navigation menu"]'
+    SETTINGS_BTN = '(//android.widget.TextView[@text="Settings"])[1]/android.view.View'
+    MORE_OPTIONS = '//android.widget.ImageButton[@content-desc="More options"]/android.widget.ImageView'
+    LOG_OUT_OPTIONS = '//android.widget.TextView[@text="Log Out"]'
+    LOG_OUT_BTN = '(//android.widget.TextView[@text="Log Out"])[2]'
+    CHAT_WITH_TELEGRAM = '//android.view.ViewGroup'
+    NUMBER_IS_BANNED = '//android.widget.TextView[@text="This phone number is banned."]'
+    OK_BTN = '//android.widget.TextView[@text="OK"]'
+    PASS_NEED_TEXT = '//android.widget.TextView[@text="Two-Step Verification enabled. Your account is protected with an additional password."]'
+    FORGOT_PASS_BTN = '//android.widget.TextView[@text="Forgot password?"]'
+    RESET_ACC_BTN = '//android.widget.TextView[@text="Reset account"]'
+    CHECK_EMAIL_TEXT = '//android.widget.TextView[@text="Check Your Email"]'
+    TOO_MANY_ATTEMPTS = '//android.widget.TextView[@text="Too many attempts, please try again later."]'
+    ENTER_CODE_TEXT = '//android.widget.TextView[@text="Enter code"]'
+    MESSAGES_BOX = '//androidx.recyclerview.widget.RecyclerView'
+    ACCEPT_BTN = '//android.widget.TextView[@text="Accept"]'
+    GET_CODE_VIA_SMS = '//android.widget.TextView[@text="Get the code via SMS"]'
+
     def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None):
         super().__init__(udid, appium_port, emulator_path, emulator_name)
         self.app_package = 'org.telegram.messenger'
@@ -350,9 +360,74 @@ class Telegram(Emulator):
         self.send_keys(By.XPATH, self.LAST_NAME_FIELD, last_name, timeout=2)
         self.click_element(By.XPATH, self.DONE_BTN, timeout=2)
 
+    def get_telegram_chat_index(self, chat_elements, timeout=30):
+        try:
+            # Временная папка для скриншотов
+            temp_screenshot_path = "temp_screenshot.png"
+
+            for index, element in enumerate(chat_elements, start=1):
+                try:
+                    # Получение координат элемента
+                    bounds = element.get_attribute("bounds")  # Формат: [x1,y1][x2,y2]
+                    match = re.match(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", bounds)
+                    if not match:
+                        logging.error(f"Некорректные bounds для чата {index}: {bounds}")
+                        continue
+
+                    x1, y1, x2, y2 = map(int, match.groups())
+                    width = x2 - x1
+                    height = y2 - y1
+
+                    # Сохранение полного скриншота
+                    self.driver.get_screenshot_as_file(temp_screenshot_path)
+
+                    # Обрезка скриншота до области чата
+                    with Image.open(temp_screenshot_path) as img:
+                        chat_area = img.crop((x1, y1, x2, y2))
+                        chat_area.save(temp_screenshot_path)
+
+                    # Извлечение текста с помощью OCR
+                    text = pytesseract.image_to_string(Image.open(temp_screenshot_path), lang='eng+rus')
+
+                    # Проверка наличия слова "Telegram" (регистронезависимо)
+                    if "telegram @" in text.lower():
+                        logging.info(f"Чат Telegram найден на индексе {index}")
+                        os.remove(temp_screenshot_path)  # Удаление временного файла
+                        return index
+
+                except Exception as e:
+                    logging.error(f"Ошибка при обработке чата {index}: {e}")
+                    continue
+
+            # Удаление временного файла, если он остался
+            if os.path.exists(temp_screenshot_path):
+                os.remove(temp_screenshot_path)
+
+            logging.info("Чат Telegram не найден")
+            return None
+
+        except Exception as e:
+            logging.error(f"Ошибка при поиске чата Telegram: {e}")
+            return None
+
     def read_sms_with_code(self, timeout=120):
         telegram_chat = '//android.view.ViewGroup'
-        message_xpath = '//android.view.ViewGroup[contains(@text, "Код для входа в Telegram: ")]'
+        message_xpath = '//android.view.ViewGroup[contains(@text, "Login code: ")]'
+
+        recycler_view_xpath = "//androidx.recyclerview.widget.RecyclerView"
+        WebDriverWait(self.driver, timeout).until(
+            EC.presence_of_element_located((By.XPATH, recycler_view_xpath))
+        )
+        logging.info("RecyclerView найден")
+
+        # Получение всех ViewGroup элементов в RecyclerView
+        chat_elements = self.driver.find_elements(By.XPATH, f"{recycler_view_xpath}/android.view.ViewGroup")
+        logging.info(f"Найдено {len(chat_elements)} чатов")
+
+        if len(chat_elements) > 1:
+            index = self.get_telegram_chat_index(chat_elements)
+            telegram_chat = f"{recycler_view_xpath}/android.view.ViewGroup[{index}]"
+
         if self.check_element(By.XPATH, telegram_chat, timeout):
             self.click_element(By.XPATH, telegram_chat, timeout)
             try:
@@ -365,7 +440,7 @@ class Telegram(Emulator):
                 logging.info(f"Message text: {message_text}")
 
                 # Извлечение кода с помощью регулярного выражения
-                code_pattern = r'Код для входа в Telegram: (\d{5})'
+                code_pattern = r'Login code: (\d{5})'
                 match = re.search(code_pattern, message_text)
                 if match:
                     code = match.group(1)
@@ -386,3 +461,14 @@ class Telegram(Emulator):
         self.click_element(By.XPATH, self.LOG_OUT_OPTIONS)
         self.click_element(By.XPATH, self.LOG_OUT_BTN)
         self.click_element(By.XPATH, self.LOG_OUT_BTN)
+
+
+if __name__ == '__main__':
+    telegram = Telegram('emulator-5554')
+    telegram.do_activity(capabilities={
+        "platformName": "Android",
+        "appium:deviceName": 'emulator-5554',
+        "appium:udid": 'emulator-5554',
+        "appium:automationName": "UiAutomator2",
+    })
+    telegram.read_sms_with_code()
