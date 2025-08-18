@@ -1,3 +1,8 @@
+.log
+log.txt
 grizzly_sms_api.txt
 lzt_token.txt
 sms_activate_api.txt
+sessions/converted
+sessions/dat
+sessions/JSON

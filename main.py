@@ -4,14 +4,9 @@ import time
 import os
 import random
 import logging
-import socks
-import asyncio
-import aiohttp
 import shutil
 from datetime import datetime
 from auto_reger.adb_handler import reset_telegram_data, run_adb_command, get_device_info
-from auto_reger.session_converter import transfer_dat_session, convert_dat_to_session
-from telethon import TelegramClient
 from auto_reger.utils import read_json, write_json
 from auto_reger.sms_api import SmsApi, remove_activation_from_json, save_activation_to_json, can_set_status_8
 from auto_reger.emulator_handler import Telegram
@@ -21,8 +16,6 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.sync import TelegramClient
-from telethon.sessions import StringSession
-from concurrent.futures import ThreadPoolExecutor
 
 # Настройка кодировки для корректного вывода
 import sys
