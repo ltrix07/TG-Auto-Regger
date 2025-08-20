@@ -314,7 +314,7 @@ def generate_and_set_user_agent():
         )
         commands = [
             "su",
-            f"settings put global http_user_agent \"{new_user_agent}\"",
+            f"settingss put global http_user_agent \"{new_user_agent}\"",
             "exit",
             "exit"
         ]
@@ -340,7 +340,7 @@ def change_setting(level, setting_name, value):
         )
         commands = [
             "su",
-            f"settings put {level} {setting_name} {value}",
+            f"settingss put {level} {setting_name} {value}",
             "exit",
             "exit"
         ]
@@ -419,7 +419,7 @@ def compare_emulator_settings(udid1, udid2, adb_path=r"C:\Android\platform-tools
 
     def get_settings(udid, namespace):
         """Получает настройки для указанного namespace (secure, global, system)"""
-        command = f'"{adb_path}" -s {udid} shell settings list {namespace}'
+        command = f'"{adb_path}" -s {udid} shell settingss list {namespace}'
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         output, error = process.communicate()
         if error:
@@ -585,7 +585,7 @@ def reset_telegram_data(udid):
         logging.info("Telegram data cleared successfully")
 
         # Сброс Advertising ID
-        subprocess.run(adb_prefix + ["shell", "settings", "delete", "secure", "advertising_id"], check=True)
+        subprocess.run(adb_prefix + ["shell", "settingss", "delete", "secure", "advertising_id"], check=True)
         logging.info("Advertising ID reset successfully")
 
         # Выбор случайного реального устройства

@@ -4,8 +4,221 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="add capcha loger; TData creator by Telegram desktop app">
+    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="add decryptor for tdata; add lzt api and upload item on market">
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/REQUESTED" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/entry_points.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor-0.0.8.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/__main__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/exceptions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/sessions/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/sessions/pyro.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/sessions/tdata.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/TGConvertor/sessions/tele.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite-0.21.0.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite-0.21.0.dist-info/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite-0.21.0.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite-0.21.0.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite-0.21.0.dist-info/REQUESTED" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite-0.21.0.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/__version__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/context.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/core.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/cursor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/py.typed" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/tests/__main__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/tests/helpers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/tests/perf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiosqlite/tests/smoke.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/REQUESTED" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle-2.9.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pystyle/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/__main__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/cli.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/crypto.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/decrypter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/file_io.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/qt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/storage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tdesktop_decrypter/tdf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/REQUESTED" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/direct_url.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/entry_points.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telegram_desktop_decrypter-1.1.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Scripts/__main__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Scripts/mycommand.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.venv11/Scripts/tdesktop-decrypter.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auto_reger/decryptor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/create_vcf_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/ImageCms.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/ImageCms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/ImageFont.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/ImageFont.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/Jpeg2KImagePlugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/Jpeg2KImagePlugin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/JpegImagePlugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/JpegImagePlugin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/PcxImagePlugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/PIL/PcxImagePlugin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/_pytest/pathlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/_pytest/pathlib.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/adodbapi/examples/db_print.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/adodbapi/examples/db_print.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/adodbapi/process_connect_string.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/adodbapi/process_connect_string.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiohttp/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/aiohttp/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/options/android/common/adb/mock_location_app_option.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/options/android/common/adb/mock_location_app_option.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/options/ios/xcuitest/simulator/permissions_option.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/options/ios/xcuitest/simulator/permissions_option.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/options/ios/xcuitest/wda/screenshot_quality_option.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/options/ios/xcuitest/wda/screenshot_quality_option.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/webdriver/extensions/android/nativekey.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/webdriver/extensions/android/nativekey.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/webdriver/extensions/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/appium/webdriver/extensions/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/comtypes/_post_coinit/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/comtypes/_post_coinit/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/contourpy/util/_build_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/contourpy/util/_build_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/dateutil/parser/isoparser.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/dateutil/parser/isoparser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/dateutil/tz/win.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/dateutil/tz/win.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/F__e_a_t.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/F__e_a_t.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/L_T_S_H_.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/L_T_S_H_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/_f_e_a_t.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/_f_e_a_t.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/_g_a_s_p.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/_g_a_s_p.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/otData.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/fontTools/ttLib/tables/otData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/isapi/install.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/isapi/install.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/iso_schematron_skeleton_for_xslt1.xsl" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/iso_schematron_skeleton_for_xslt1.xsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/axes/_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/axes/_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/axis.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/axis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/backends/_backend_tk.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/backends/_backend_tk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/backends/backend_pdf.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/backends/backend_pdf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/inset.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/inset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/layout_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/layout_engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/projections/polar.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/projections/polar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/pyplot.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/pyplot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/quiver.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/quiver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/rcsetup.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/rcsetup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/style/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/style/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/testing/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/testing/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_collections.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_collections.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_colorbar.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_colorbar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_style.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_style.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/tests/test_widgets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/textpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/textpath.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/ticker.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/matplotlib/ticker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/mpl_toolkits/mplot3d/axes3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/mpl_toolkits/mplot3d/axes3d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/nose/plugins/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/nose/plugins/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/nose/plugins/plugintest.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/nose/plugins/plugintest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/nose/selector.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/nose/selector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/numpy/_core/_ufunc_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/numpy/_core/_ufunc_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/numpy/_core/numeric.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/numpy/_core/numeric.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/numpy/testing/_private/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/numpy/testing/_private/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/opentele/td/tdesktop.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/opentele/td/tdesktop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/_config/localization.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/_config/localization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/core/frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/core/frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/core/strings/accessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/core/strings/accessor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/core/util/numba_.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/core/util/numba_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/excel/_odswriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/excel/_odswriter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/formats/info.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/formats/info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/formats/style.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/formats/style.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/formats/style_render.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/formats/style_render.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/parsers/readers.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/io/parsers/readers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/plotting/_matplotlib/boxplot.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/plotting/_matplotlib/boxplot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/plotting/_matplotlib/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/plotting/_matplotlib/tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/tests/frame/methods/test_asfreq.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pandas/tests/frame/methods/test_asfreq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_internal/req/req_install.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_internal/req/req_install.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/pyproject_hooks/_impl.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/pyproject_hooks/_impl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/requests/adapters.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/requests/adapters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/requests/sessions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/requests/sessions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/requests/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/requests/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/urllib3/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/urllib3/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/urllib3/contrib/appengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pip/_vendor/urllib3/contrib/appengine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyautogui/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyautogui/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pycparser/ply/yacc.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pycparser/ply/yacc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/helpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/errors/exceptions/bad_request_400.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/errors/exceptions/bad_request_400.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/errors/exceptions/forbidden_403.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/errors/exceptions/forbidden_403.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/methods/bots/set_bot_commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/methods/bots/set_bot_commands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/mime_types.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/mime_types.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/types/user_and_chats/chat_event_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/types/user_and_chats/chat_event_filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/types/user_and_chats/chat_permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/types/user_and_chats/chat_permissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/types/user_and_chats/chat_privileges.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyrogram/types/user_and_chats/chat_privileges.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pythonwin/pywin/framework/editor/editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pythonwin/pywin/framework/editor/editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pythonwin/pywin/scintilla/formatter.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pythonwin/pywin/scintilla/formatter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pywinauto/timings.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pywinauto/timings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/requests/adapters.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/requests/adapters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/requests/sessions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/requests/sessions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/requests/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/requests/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/chromium/webdriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/chromium/webdriver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/audits.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/audits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/autofill.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/autofill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/browser.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/browser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/pwa.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v134/pwa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/audits.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/audits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/autofill.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/autofill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/browser.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/browser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/css.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/pwa.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v135/pwa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/audits.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/audits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/autofill.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/autofill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/browser.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/browser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/css.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/pwa.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/devtools/v136/pwa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/proxy.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/proxy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/selenium_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/selenium/webdriver/common/selenium_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_distutils/ccompiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_distutils/ccompiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_distutils/msvc9compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_distutils/msvc9compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_distutils/msvccompiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_distutils/msvccompiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_vendor/typeguard/_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/_vendor/typeguard/_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/build_meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/build_meta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/command/easy_install.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/command/easy_install.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/test_editable_install.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/test_editable_install.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/test_egg_info.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/test_egg_info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/client/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/client/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/client/chats.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/client/chats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/errors/rpcerrorlist.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/errors/rpcerrorlist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/custom/adminlogevent.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/custom/adminlogevent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/functions/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/functions/account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/functions/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/functions/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/functions/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/functions/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/types/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/types/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/types/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/telethon/tl/types/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/trio/_core/_tests/test_io.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/trio/_core/_tests/test_io.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/trio/_core/_wakeup_socketpair.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/trio/_core/_wakeup_socketpair.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/trio/_tests/test_highlevel_ssl_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/trio/_tests/test_highlevel_ssl_helpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/urllib3/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/urllib3/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32/test/testall.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32/test/testall.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32com/demos/ietoolbar.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32com/demos/ietoolbar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32com/server/register.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32com/server/register.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32com/test/testDCOM.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32com/test/testDCOM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32comext/authorization/demos/EditServiceSecurity.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32comext/authorization/demos/EditServiceSecurity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32comext/shell/demos/servers/folder_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32comext/shell/demos/servers/folder_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32comext/shell/demos/servers/shell_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/win32comext/shell/demos/servers/shell_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activations.json" beforeDir="false" afterPath="$PROJECT_DIR$/activations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/adb_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/adb_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/app_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/app_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/emulator_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/emulator_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/lzt_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/lzt_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/session_converter.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/session_converter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/sms_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/sms_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/names.txt" beforeDir="false" afterPath="$PROJECT_DIR$/names.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/second_names.txt" beforeDir="false" afterPath="$PROJECT_DIR$/second_names.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,128 +261,86 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for gild.MyTestCase.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for gild.MyTestCase.test_my_first_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_account_log_out.test_account_log_out.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_check_app_installed.test_check_app_installed.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_click_log_out_btn.test_click_log_out_btn.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_click_log_out_options.test_click_log_out_options.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_click_more_options.test_click_more_options.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_click_on_menu.test_click_on_menu.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_click_settings_btn.test_click_settings_btn.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_do_activity.test_do_activity.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_init_.test_init_.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_main.test_api.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_press_on_chat_with_telegram.test_press_on_chat_with_telegram.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_qty_of_numbers.test_qty_of_numbers.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_send_number.test_send_number.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_start_page.test_start_page.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest for test_verification_number.test_verification_number.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_check_verif_status.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_converter.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_enter_phone_verif_code.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_extract_telegram_code.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_main.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_onion_handler.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_qty_of_numbers.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_reconnection.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_send_number.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_start_messaging.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_start_page.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_verification_number.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.test_start_page.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Session Converter.executor&quot;: &quot;Run&quot;,
-    &quot;Python.adb_handler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app_handler (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.app_handler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.dergatel.executor&quot;: &quot;Run&quot;,
-    &quot;Python.emulator_handler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gild.executor&quot;: &quot;Run&quot;,
-    &quot;Python.lzt_api.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.onion_handler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.qty_of_numbers.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sdfdf.executor&quot;: &quot;Run&quot;,
-    &quot;Python.session_converter.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sms_api.executor&quot;: &quot;Run&quot;,
-    &quot;Python.statistic_collector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_change_status.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_converter.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_get_balance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_get_number.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_onion_handler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_start_emulator.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/sessions/converted/2025-08-14/acc_12293734582&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for gild.MyTestCase.executor": "Run",
+    "Python tests.Python tests for gild.MyTestCase.test_my_first_test.executor": "Run",
+    "Python tests.pytest for test_account_log_out.test_account_log_out.executor": "Run",
+    "Python tests.pytest for test_check_app_installed.test_check_app_installed.executor": "Run",
+    "Python tests.pytest for test_click_log_out_btn.test_click_log_out_btn.executor": "Run",
+    "Python tests.pytest for test_click_log_out_options.test_click_log_out_options.executor": "Run",
+    "Python tests.pytest for test_click_more_options.test_click_more_options.executor": "Run",
+    "Python tests.pytest for test_click_on_menu.test_click_on_menu.executor": "Run",
+    "Python tests.pytest for test_click_settings_btn.test_click_settings_btn.executor": "Run",
+    "Python tests.pytest for test_do_activity.test_do_activity.executor": "Run",
+    "Python tests.pytest for test_init_.test_init_.executor": "Run",
+    "Python tests.pytest for test_main.test_api.executor": "Run",
+    "Python tests.pytest for test_press_on_chat_with_telegram.test_press_on_chat_with_telegram.executor": "Run",
+    "Python tests.pytest for test_qty_of_numbers.test_qty_of_numbers.executor": "Run",
+    "Python tests.pytest for test_send_number.test_send_number.executor": "Run",
+    "Python tests.pytest for test_start_page.test_start_page.executor": "Run",
+    "Python tests.pytest for test_verification_number.test_verification_number.executor": "Run",
+    "Python tests.pytest in test_check_verif_status.py.executor": "Run",
+    "Python tests.pytest in test_converter.py.executor": "Run",
+    "Python tests.pytest in test_enter_phone_verif_code.py.executor": "Run",
+    "Python tests.pytest in test_extract_telegram_code.py.executor": "Run",
+    "Python tests.pytest in test_main.py.executor": "Run",
+    "Python tests.pytest in test_onion_handler.py.executor": "Run",
+    "Python tests.pytest in test_qty_of_numbers.py.executor": "Run",
+    "Python tests.pytest in test_reconnection.py.executor": "Run",
+    "Python tests.pytest in test_send_number.py.executor": "Run",
+    "Python tests.pytest in test_start_messaging.py.executor": "Run",
+    "Python tests.pytest in test_start_page.py.executor": "Run",
+    "Python tests.pytest in test_verification_number.py.executor": "Run",
+    "Python tests.test_start_page.py.executor": "Run",
+    "Python.Session Converter.executor": "Run",
+    "Python.adb_handler.executor": "Run",
+    "Python.app_handler (1).executor": "Run",
+    "Python.app_handler.executor": "Run",
+    "Python.create_vcf_file.executor": "Run",
+    "Python.decryptor.executor": "Run",
+    "Python.dergatel.executor": "Run",
+    "Python.emulator_handler.executor": "Run",
+    "Python.gild.executor": "Run",
+    "Python.lzt_api.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.onion_handler.executor": "Run",
+    "Python.qty_of_numbers.executor": "Run",
+    "Python.sdfdf.executor": "Run",
+    "Python.session_converter.executor": "Run",
+    "Python.sms_api.executor": "Run",
+    "Python.statistic_collector.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.test_change_status.executor": "Run",
+    "Python.test_converter.executor": "Run",
+    "Python.test_get_balance.executor": "Run",
+    "Python.test_get_number.executor": "Run",
+    "Python.test_onion_handler.executor": "Run",
+    "Python.test_start_emulator.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Владимир/PycharmProjects/TG-Auto-Reg",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-20\acc_12137350829" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_12293734582" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_14798478711" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_12254203536" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-14\acc_18126966983" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\tests\Session Converter" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-19\Cyprus" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-19\USA" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-17\Turkey" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-17\USA" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-15\USA" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\JSON" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="adb_handler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="TG-Auto-Reg" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/adb_handler.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="app_handler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="TG-Auto-Reg" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/app_handler.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.lzt_api">
+    <configuration name="create_vcf_file" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TG-Auto-Reg" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -182,7 +353,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/create_vcf_file.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -191,7 +362,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="sms_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="decryptor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TG-Auto-Reg" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -204,7 +375,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/sms_api.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/decryptor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -213,7 +384,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="statistic_collector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="lzt_api" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TG-Auto-Reg" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -226,7 +397,51 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/statistic_collector.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/lzt_api.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="session_converter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/session_converter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TG-Auto-Reg" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -278,20 +493,20 @@
     </configuration>
     <list>
       <item itemvalue="Python.test_converter" />
-      <item itemvalue="Python.app_handler" />
-      <item itemvalue="Python.statistic_collector" />
-      <item itemvalue="Python.sms_api" />
-      <item itemvalue="Python.adb_handler" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python.decryptor" />
+      <item itemvalue="Python.lzt_api" />
+      <item itemvalue="Python.session_converter" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.create_vcf_file" />
       <item itemvalue="Python tests.pytest in C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.app_handler" />
-        <item itemvalue="Python.adb_handler" />
-        <item itemvalue="Python.statistic_collector" />
-        <item itemvalue="Python.sms_api" />
+        <item itemvalue="Python.lzt_api" />
+        <item itemvalue="Python.decryptor" />
+        <item itemvalue="Python.session_converter" />
+        <item itemvalue="Python.create_vcf_file" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -367,7 +582,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755499235931</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add capcha loger; TData creator by Telegram desktop app">
+      <option name="closed" value="true" />
+      <created>1755507106548</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1755507106548</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -384,6 +607,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update MAX" />
     <MESSAGE value="add capcha loger; TData creator by Telegram desktop app" />
-    <option name="LAST_COMMIT_MESSAGE" value="add capcha loger; TData creator by Telegram desktop app" />
+    <MESSAGE value="add decryptor for tdata; add lzt api and upload item on market" />
+    <option name="LAST_COMMIT_MESSAGE" value="add decryptor for tdata; add lzt api and upload item on market" />
   </component>
 </project>

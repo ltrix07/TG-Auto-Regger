@@ -1,4 +1,7 @@
 import requests
+import zipfile
+import os
+import tempfile
 from typing import Literal
 
 
@@ -189,19 +192,73 @@ class LZTAPI:
         response = requests.get(url, headers=headers, params=params)
         return response
 
+    def upload_tdata_to_lzt(self, login, password, title, title_en, price,
+                            random_proxy=True, description=None,
+                            category_id=24, currency='usd', item_origin='autoreg',
+                            check_channels=True, check_spam=True):
+        url = "https://prod-api.lzt.market/item/fast-sell"
+        params = {
+            'title': title,
+            'login': login,
+            'password': password,
+            'title_en': title_en,
+            'price': price,
+            'category_id': category_id,
+            'currency': currency,
+            'item_origin': item_origin,
+            'checkChannels': check_channels,
+            'checkSpam': check_spam,
+            'random_proxy': random_proxy
+        }
+
+        if description:
+            params['description'] = description
+
+        headers = {
+            "accept": "application/json",
+            "Authorization": f"Bearer {self.token}"
+        }
+
+        # with open(session_path, 'rb') as f:
+        payload = {"extra": {}}
+        if check_channels:
+            payload['extra']['checkChannels'] = check_channels
+        if check_spam:
+            payload['extra']['checkSpam'] = check_spam
+        if random_proxy:
+            payload['extra']['random_proxy'] = random_proxy
+
+        response = requests.post(url, params=params, headers=headers, json=payload)
+
+        return response.json()
+
 
 if __name__ == '__main__':
+    description = '''Бонус за отзыв:
+
+Оставьте отзыв о покупке и получите скидку 10% на следующую покупку! 1 отзыв = 1 скидка. Для оптовых заказов пишите в ЛС — обсудим индивидуальные условия!
+
+ Гарантия:
+
+•  3 дня гарантии при условии, что аккаунт не используется для спама или действий, нарушающих правила Telegram.
+
+•  В случае проблем — оперативная поддержка.
+
+ Важно:
+
+В первую неделю использования обязательно подключайтесь через прокси страны регистрации аккаунта для стабильной работы.
+
+Пишите в ЛС для заказа, уточнения деталей или оптовых предложений!
+
+Надежность, качество, поддержка — ваш успех с нашими аккаунтами!'''
+
     lzt = LZTAPI(token_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\lzt_token.txt')
-    response = lzt.search_by_category_telegram(
-        page=1,
-        origin=['self_registration', 'autoreg'],
-        currency='usd',
-        country=['US'],
-        spam='no',
-        password='no'
+    response = lzt.upload_tdata_to_lzt(
+        title='АККАУНТ +1 - США | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА',
+        title_en='Account +1 - USA | New account | Entrance from any device',
+        price=1.12,
+        description=description,
+        login='71b8c17be0eb5ba2f41abc0f38ebaae11ce318fc848f320569b2d3ef50639d5e36c33e6305ef635f7e12f52d1c6bb27f7452af7bb321ff9d4615a08a76ab0cc2272e12dd19a38d7274822f52de6481c2824ffb187a8554f80ffa67b656bb40dea57228a243986e7bfe9b6833e1435bced50e1170e9bb8de0c7aa6a760ed5512bd88aa32a511f5d22f579a194d00ba7a9542d52d4e257881fc7f230fd3e117ed4b40172eccf1e1ab0d99381c36ae345822512a8b02042e9ae2835911d553a1b43edd8e095d377e9a8cf219f2342a2d90fa70a4f36db77dcf32afdd6b906a294454360122a8fba4b5083b653fa8d89bd283b1ee7758b40b5676f2fc952d7886f4f',
+        password=1
     )
-
-    prices = []
-
-    for item in response.json()['items']:
-        print(item)
+    print(response)

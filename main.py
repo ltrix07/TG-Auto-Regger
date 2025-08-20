@@ -391,14 +391,17 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
         else:
             username = generate_random_string(8)
             password = generate_random_string(12)
-            onion.reg_and_login(username, password)
-            telegram.enter_email(f"{username}@onionmail.org")
+            email = onion.reg_and_login(username, password, 'onionmail.com')
+            telegram.enter_email(email)
             time.sleep(random.uniform(1, 2))
 
             email_code = onion.extract_code()
             if email_code:
                 run_adb_command(f'input text "{email_code}"')
                 logging.info(f"Email verification code entered: {email_code}")
+                if telegram.check_element(By.XPATH, '//android.widget.TextView[@text="SMS Fee"]', timeout=2):
+                    logging.error("Required premium for continue")
+                    return False
             else:
                 logging.error("Failed to get email verification code")
                 activation_admin(sms_activate)
@@ -427,7 +430,14 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
                                           last_names,
                                           phone_number,
                                           activation_id)
-        
+
+        time.sleep(5)
+        telegram.click_element(By.XPATH, telegram.ACCEPT_BTN, timeout=3)
+        telegram.click_element(By.XPATH, telegram.CONTINUE_BTN, timeout=10)
+        telegram.click_element(By.XPATH, telegram.ALLOW_BTN, timeout=5)
+        time.sleep(2)
+        telegram.click_element(By.XPATH, telegram.ALLOW_BTN, timeout=5)
+
         if not first_name and not last_name and not telegram.check_element(By.XPATH, telegram.MESSAGES_BOX, timeout=2):
             logging.error("Failed to reset account")
             activation_admin(sms_activate)
@@ -444,16 +454,9 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
                      android_v=device_info['android'],
                      tg_v=device_info['tg'],
                      system_lang=device_info['sys_lang'])
-        logging.info(f"Account registered successfully: {phone_number}")
-        time.sleep(5)
-
-        telegram.click_element(By.XPATH, telegram.ACCEPT_BTN, timeout=3)
-        telegram.click_element(By.XPATH, telegram.CONTINUE_BTN, timeout=5)
-        telegram.click_element(By.XPATH, telegram.ALLOW_BTN, timeout=5)
-        time.sleep(2)
-        telegram.click_element(By.XPATH, telegram.ALLOW_BTN, timeout=5)
 
         create_tdata_with_telegram_desktop(telegram, phone_number)
+        logging.info(f"Account registered successfully: {phone_number}")
         return True
 
     except Exception as e:
@@ -509,54 +512,62 @@ def get_device_config(num_threads, is_physical):
 
 def main():
     cech_data = setup_cech()
-
-    sms_api_key_path = input("Enter path for file with API key for SMS service: ").strip()
-    if not sms_api_key_path:
-        sms_api_key_path = 'sms_activate_api.txt'
-    sms_service = input("Enter sms service (sms-activate, grizzly-sms, etc.): ")
-    cech_data['sms_api_key_path'] = sms_api_key_path
-    write_json(cech_data, CECH_PATH)
-
-    device_type = input("Run on emulator (E) or physical device (P): ").strip().upper()
-    while device_type not in ['E', 'P']:
-        print("Invalid input. Please enter 'E' for emulator or 'P' for physical device.")
-        device_type = input("Run on emulator (E) or physical device (P): ").strip().upper()
-    is_physical = device_type == 'P'
-
-    first_names_file = input("Enter path to file with first names (default: names.txt): ").strip() or 'names.txt'
-    last_names_file = input("Enter path to file with last names (default: second_names.txt): ").strip() or 'second_names.txt'
-
-    first_names = load_names(first_names_file) if os.path.isfile(first_names_file) else []
-    last_names = load_names(last_names_file) if os.path.isfile(last_names_file) else []
-
-    num_accounts = int(input("Enter number of accounts to register: "))
-
-    try:
-        devices = get_device_config(1, is_physical)  # Single thread
-    except ValueError as e:
-        logging.error(f"Configuration error: {str(e)}")
-        return
+    start_time = time.time()
 
     registered_accounts = 0
-    attempt = 0
-    device_config = devices[0]  # Only one device config
+    try:
+        sms_api_key_path = input("Enter path for file with API key for SMS service: ").strip()
+        if not sms_api_key_path:
+            sms_api_key_path = 'sms_activate_api.txt'
+        sms_service = input("Enter sms service (sms-activate, grizzly-sms, etc.): ")
+        cech_data['sms_api_key_path'] = sms_api_key_path
+        write_json(cech_data, CECH_PATH)
 
-    # Sequential execution for each account
-    while registered_accounts < num_accounts:
-        attempt += 1
-        logging.info(f"Attempting to register account {attempt}")
-        success = register_account(device_config, sms_service, sms_api_key_path, first_names, last_names, attempt)
-        if success:
-            registered_accounts += 1
-            logging.info(f"Account registration successful. Total successful: {registered_accounts}/{num_accounts}")
-        else:
-            logging.error(f"Account registration failed for account {attempt}")
+        device_type = input("Run on emulator (E) or physical device (P): ").strip().upper()
+        while device_type not in ['E', 'P']:
+            print("Invalid input. Please enter 'E' for emulator or 'P' for physical device.")
+            device_type = input("Run on emulator (E) or physical device (P): ").strip().upper()
+        is_physical = device_type == 'P'
 
-    # Close emulator if used
-    if not is_physical:
-        kill_emulator(device_config['app_name'])
+        first_names_file = input("Enter path to file with first names (default: names.txt): ").strip() or 'names.txt'
+        last_names_file = input("Enter path to file with last names (default: second_names.txt): ").strip() or 'second_names.txt'
 
-    logging.info(f"Registration complete. Successfully registered {registered_accounts} of {num_accounts} accounts")
+        first_names = load_names(first_names_file) if os.path.isfile(first_names_file) else []
+        last_names = load_names(last_names_file) if os.path.isfile(last_names_file) else []
+
+        num_accounts = int(input("Enter number of accounts to register: "))
+
+        try:
+            devices = get_device_config(1, is_physical)  # Single thread
+        except ValueError as e:
+            logging.error(f"Configuration error: {str(e)}")
+            return
+
+        attempt = 0
+        device_config = devices[0]  # Only one device config
+
+        # Sequential execution for each account
+        while registered_accounts < num_accounts:
+            attempt += 1
+            logging.info(f"Attempting to register account {attempt}")
+            success = register_account(device_config, sms_service, sms_api_key_path, first_names, last_names, attempt)
+            if success:
+                registered_accounts += 1
+                logging.info(f"Account registration successful. Total successful: {registered_accounts}/{num_accounts}")
+            else:
+                logging.error(f"Account registration failed for account {attempt}")
+
+        # Close emulator if used
+        if not is_physical:
+            kill_emulator(device_config['app_name'])
+
+        logging.info(f"Registration complete. Successfully registered {registered_accounts} of {num_accounts} accounts")
+    finally:
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        per_account = elapsed_time / registered_accounts
+        print(f"Скрипт выполнен за {(elapsed_time / 60):.2f} минут")
+        print(f"Среднее время на 1 аккаунт {(per_account / 60):.2f} минут")
 
 
 if __name__ == "__main__":

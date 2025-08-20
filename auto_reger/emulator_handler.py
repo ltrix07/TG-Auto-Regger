@@ -302,7 +302,7 @@ class Telegram(Emulator):
             if self.check_element(By.XPATH, self.CONTINUE_BTN, timeout=10):
                 self.click_element(By.XPATH, self.CONTINUE_BTN)
 
-            if self.click_element(By.XPATH, '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]', timeout=5):
+            if self.click_element(By.XPATH, '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]', timeout=7):
                 self.click_element(By.XPATH, '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]')
 
         except (TimeoutException, NoSuchElementException):
@@ -312,7 +312,7 @@ class Telegram(Emulator):
             if self.check_element(By.XPATH, self.CONTINUE_BTN, timeout=3):
                 self.click_element(By.XPATH, self.CONTINUE_BTN)
 
-            if self.click_element(By.XPATH, '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]', timeout=5):
+            if self.click_element(By.XPATH, '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]', timeout=7):
                 self.click_element(By.XPATH, '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]')
 
     def send_number(self, number, timeout=5):

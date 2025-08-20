@@ -4,13 +4,47 @@ import asyncio
 import sys
 import logging
 import subprocess
+import configparser
+from auto_reger.decryptor import get_auth_key_and_dc_id
+import shutil
+import tempfile
 from datetime import datetime
+from TGConvertor.manager import SessionManager
 from auto_reger.adb_handler import run_adb_command
 from AndroidTelePorter import AndroidSession
-from telethon.sync import TelegramClient
+from opentele.td import TDesktop
+from opentele.api import CreateNewSession
+from telethon import TelegramClient
+from telethon.sessions import StringSession
+from pathlib import Path
 
 
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+
+
+class Converter:
+    def __init__(self, session_folder: str):
+        self.session_folder = session_folder
+        os.makedirs(self.session_folder, exist_ok=True)
+
+    async def tdata_to_session(self, tdata_path):
+        try:
+            account_name = os.path.basename(os.path.dirname(tdata_path.rstrip("/\\")))
+            session_path = os.path.join(self.session_folder, f"{account_name}.session")
+
+            acc_data = get_auth_key_and_dc_id(tdata_path)
+            auth_key = bytes.fromhex(acc_data['auth_key'])
+            dc_id = acc_data['dc_id']
+            user_id = acc_data['user_id']
+
+            session = SessionManager(auth_key=auth_key, user_id=user_id, dc_id=dc_id)
+            await session.to_telethon_file(session_path)
+
+            print(f'✅ Конвертировал "{account_name}" → {session_path}')
+            return True
+        except Exception as e:
+            print(f"[!] Ошибка конвертации: {e}")
+            return False
 
 
 def transfer_dat_session():
@@ -114,23 +148,9 @@ def convert_dat_to_tdata(phone_number):
         return False
 
 
-async def check_session(session_path,
-                        api_id=None,
-                        api_hash=None):
-    if api_id and api_hash:
-        client = TelegramClient(session=session_path, api_id=api_id, api_hash=api_hash)
-    else:
-        client = TelegramClient(session=session_path, api_id=API_ID, api_hash=API_HASH)
-
-    me = await client.get_me()
-    print(me.stringify())
-
-    return False
-
-
 if __name__ == '__main__':
-    try:
-        transfer_dat_session()
-        convert_dat_to_session(15674661314)
-    except Exception as e:
-        print(e)
+    converter = Converter('./sessions')
+    asyncio.run(
+        converter.tdata_to_session(
+            r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-18\acc_16074181780\tdata')
+    )

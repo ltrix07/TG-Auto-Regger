@@ -135,6 +135,5 @@ class SmsApi(SMSActivateAPI):
 
 if __name__ == '__main__':
     sms = SmsApi(service='sms-activate', api_key_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sms_activate_api.txt')
-    status = sms.get_price('tg', 'Netherlands')
-    for val in status.values():
-        print(val)
+    status = sms.get_price('tg', 'Australia')
+    print(status)

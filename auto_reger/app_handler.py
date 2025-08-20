@@ -155,8 +155,6 @@ class Onion(App):
             return False
         except Exception as e:
             logging.error(f"General error during capcha_hack: {str(e)}")
-            if window:
-                window.print_control_identifiers()
             return False
 
     @staticmethod
@@ -175,7 +173,8 @@ class Onion(App):
             logging.error(f"Error checking capcha window: {str(e)}")
             return False
 
-    def reg_and_login(self, username, password):
+    def reg_and_login(self, username, password, domain=None):
+        email = None
         try:
             self.window = self.app.window(title_re="Onion Mail.*Google Chrome.*")
             self.window.wait("ready", timeout=20)
@@ -222,9 +221,17 @@ class Onion(App):
             else:
                 logging.info("Capcha not found, proceeding with login")
 
-            # self.window = self.app.window(title_re="Onion Mail.*Google Chrome.*")
-            # self.window.wait("ready", timeout=20)
-            # self.window.set_focus()
+            if domain:
+                domain_menu = self.window.child_window(control_type='Button', title='@onionmail.org')
+                domain_menu.wait("visible", timeout=30)
+                domain_menu.click_input()
+
+                domain_item = self.window.child_window(control_type='Hyperlink', title=domain)
+                domain_item.wait("visible", timeout=5)
+                domain_item.click_input()
+                email = username + f'@{domain}'
+            else:
+                email = username + '@onionmail.org'
 
             name_field = self.window.child_window(control_type="Edit", auto_id="name")
             name_field.wait("ready", timeout=60)
@@ -295,21 +302,16 @@ class Onion(App):
                 login_btn.invoke()
                 logging.info("Вход в аккаунт почты выполнен успешно")
 
-                return True
-            else:
-                return False
-
         except ElementNotFoundError as e:
             print(f"ElementNotFoundError: {e}")
             self.window.print_control_identifiers()
-            return False
         except NotImplementedError as e:
             print(f"NotImplementedError: {e}")
-            return False
         except Exception as e:
             print(f"General error during reg_and_login: {str(e)}")
             self.window.print_control_identifiers()
-            return False
+
+        return email
 
     def extract_code(self, time_out=5, second_req=False):
         attempts = 3
@@ -460,4 +462,5 @@ class TelegramDesktop(App):
 
 if __name__ == '__main__':
     onion = Onion()
-    onion.reg_and_login('pasdirufvcw', 'fjbfdiuofkjvdjfk')
+    email = onion.reg_and_login('jgfy8weftyufger', 'jgfy8weftyufger', 'onionmail.com')
+    print(email)
