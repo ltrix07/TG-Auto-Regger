@@ -6,7 +6,7 @@ import logging
 import psutil
 import random
 import pyautogui
-import pywinauto
+from typing import Literal
 from pywinauto.findwindows import ElementNotFoundError
 from pywinauto import Application, findwindows
 
@@ -33,8 +33,8 @@ class App:
         self.handle_title = None
         self.app_name = None
 
-    def start_app(self, app_name=None, app_path = None):
-        app = Application(backend="uia")
+    def start_app(self, app_name=None, app_path=None, backend="uia"):
+        app = Application(backend=backend)
 
         if not app_name and not app_path:
             raise Exception("You need to specify app_name or app_path")
@@ -113,7 +113,7 @@ class Onion(App):
 
             # Цикл для ожидания чекбокса с перепроверкой окна
             start_time = time.time()
-            while time.time() - start_time < 30:
+            while time.time() - start_time < 300:
                 if not window.exists():
                     logging.info("Окно капчи исчезло во время ожидания")
                     return False
@@ -227,7 +227,7 @@ class Onion(App):
                 domain_menu.click_input()
 
                 domain_item = self.window.child_window(control_type='Hyperlink', title=domain)
-                domain_item.wait("visible", timeout=5)
+                domain_item.wait("visible", timeout=10)
                 domain_item.click_input()
                 email = username + f'@{domain}'
             else:
@@ -313,7 +313,7 @@ class Onion(App):
 
         return email
 
-    def extract_code(self, time_out=5, second_req=False):
+    def extract_code(self, service: Literal["telegram", "instagram"], time_out=5, second_req=False):
         attempts = 3
         attempt = 0
         try:
@@ -327,10 +327,13 @@ class Onion(App):
                 reload_page.wait("visible", timeout=time_out)
                 reload_page.invoke()
 
-                if second_req:
-                    code_element = self.window.child_window(title_re=r'.*Dear , Your code is: \d+', control_type='DataItem')
-                else:
-                    code_element = self.window.child_window(title_re=r'.*Hello Your code is: \d+', control_type='DataItem')
+                if service == "telegram":
+                    if second_req:
+                        code_element = self.window.child_window(title_re=r'.*Dear , Your code is: \d+', control_type='DataItem')
+                    else:
+                        code_element = self.window.child_window(title_re=r'.*Hello Your code is: \d+', control_type='DataItem')
+                elif service == "instagram":
+                    code_element = self.window.child_window(title_re=r'\d+ is your Instagram code.*', control_type='DataItem')
 
                 if code_element.exists(time_out) and code_element.is_visible():
                     break
@@ -339,7 +342,12 @@ class Onion(App):
                     attempt += 1
 
             text = code_element.window_text()
-            code = re.search(r"Your Code - (\d+)", text).group(1)
+            if service == "telegram":
+                code = re.search(r"Your Code - (\d+)", text).group(1)
+            elif service == "instagram":
+                code = re.search(r"(\d+) is your", text).group(1)
+            else:
+                code = None
             print(f"Extracted code: {code}")
 
             return code
@@ -354,9 +362,9 @@ class Onion(App):
 
 
 class VPN(App):
-    def __init__(self):
+    def __init__(self, backend='uia'):
         super().__init__()
-        self.app = self.start_app('vpn')
+        self.app = self.start_app('vpn', backend=backend)
         self.window = None
 
     def reconnection(self):
@@ -386,8 +394,75 @@ class VPN(App):
             print(f"NotImplementedError: {e}")
             return False
         except Exception as e:
-            print(f"General error during reg_and_login: {str(e)}")
+            print(f"General error during reconnection: {str(e)}")
             window.print_control_identifiers()
+            return False
+
+    def off(self):
+        try:
+            window = self.app.window(title_re='ExpressVPN.*')
+            window.wait("visible", timeout=20)
+            window.set_focus()
+            logging.info("Найдено окно VPN приложения")
+
+            disconnect_btn = window.child_window(title_re=r'Отключиться от.*', control_type='Button')
+            disconnect_btn.invoke()
+            logging.info("Отключение от VPN...")
+
+            connect_btn = window.child_window(title_re=r'Подключитесь к.*', control_type='Button')
+            connect_btn.wait("visible", timeout=60)
+            logging.info("Отключение VPN прошло успешно")
+            return True
+        except ElementNotFoundError as e:
+            print(f"ElementNotFoundError: {e}")
+            window.print_control_identifiers()
+            return False
+        except NotImplementedError as e:
+            print(f"NotImplementedError: {e}")
+            return False
+        except Exception as e:
+            print(f"General error during off: {str(e)}")
+            window.print_control_identifiers()
+            return False
+
+    def change_location(self, country):
+        try:
+            window = self.app.window(title_re='ExpressVPN.*')
+            window.wait("visible", timeout=20)
+            window.set_focus()
+            logging.info("Найдено окно VPN приложения")
+
+            change_location_btn = window.child_window(title='Выбрать другую локацию', control_type='Button')
+            change_location_btn.invoke()
+
+            # more_location_btn = window.child_window(title='Показать еще United States', control_type='Button')
+            # more_location_btn.invoke()
+
+            usa_window = window.child_window(control_type='Window').child_window(control_type='Tree')
+            btns_with_location = usa_window.descendants(control_type='TreeItem')[1:]
+            if btns_with_location:
+                while True:
+                    random_button = random.choice(btns_with_location)
+                    if f'{country} -' not in random_button.texts()[0]:
+                        continue
+                    random_button.click_input()
+                    logging.info(f"Изменили локацию на: {random_button.texts()[0]}")
+                    break
+            else:
+                logging.info("Кнопки с указанными заголовками не найдены")
+                return False
+
+            return True
+        except ElementNotFoundError as e:
+            print(f"ElementNotFoundError: {e}")
+            self.window.print_control_identifiers()
+            return False
+        except NotImplementedError as e:
+            print(f"NotImplementedError: {e}")
+            return False
+        except Exception as e:
+            print(f"General error during start_and_enter_number: {str(e)}")
+            self.window.print_control_identifiers()
             return False
 
 
@@ -410,11 +485,13 @@ class TelegramDesktop(App):
 
             start_messaging_btn = self.get_element_by_position(self.window, "Group", 772, 641, 1147, 693)
             start_messaging_btn.click_input()
-            logging.info('Нажата кнопка "Start messaging'"")
+            logging.info('Нажата кнопка "Start messaging"')
+            time.sleep(1)
 
             log_by_number_btn = self.get_element_by_position(self.window, "Group", 827, 726, 1093, 748)
             log_by_number_btn.click_input()
             logging.info('Нажата кнопка "Log in by number"')
+            time.sleep(2)
 
             number_input_field = self.get_element_by_position(self.window, "Edit", 772, 479, 852, 555)
             number_input_field.set_text("")
@@ -461,6 +538,5 @@ class TelegramDesktop(App):
 
 
 if __name__ == '__main__':
-    onion = Onion()
-    email = onion.reg_and_login('jgfy8weftyufger', 'jgfy8weftyufger', 'onionmail.com')
-    print(email)
+    vpn = VPN()
+    vpn.change_location('USA')

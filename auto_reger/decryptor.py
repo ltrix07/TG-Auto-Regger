@@ -1,3 +1,5 @@
+import os
+from auto_reger.utils import write_json
 from tdesktop_decrypter.decrypter import TdataReader
 from tdesktop_decrypter.cli import display_setting_value
 from tdesktop_decrypter.decrypter import NoKeyFileException
@@ -46,10 +48,26 @@ def get_auth_key_and_dc_id(tdata_path, passcode=None):
         print(f"No key file was found. Is the tdata path correct?: {exc}")
 
 
+def decrypt_folder_with_accounts(folder_path):
+    accounts_folder_list = os.listdir(folder_path)
+    items_data = []
+    errors = []
+    for acc_folder in accounts_folder_list:
+        if os.path.isdir(os.path.join(folder_path, acc_folder)):
+            tdata_path = os.path.join(folder_path, acc_folder, 'tdata')
+            item_data = get_auth_key_and_dc_id(tdata_path)
+            if item_data:
+                items_data.append(item_data)
+                continue
+
+            errors.append(acc_folder)
+            print(f"В папке аккаунта {acc_folder} не найдено данных для декодирования")
+
+    print(f"Раскодировано {len(items_data)} аккаунтов")
+    write_json(items_data, os.path.join(folder_path, 'items_data.json'))
+    write_json(errors, os.path.join(folder_path, 'errors.json'))
+
+
 if __name__ == '__main__':
-    print(
-        get_auth_key_and_dc_id(
-            r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-18\acc_16074181780\tdata'
-        )
-    )
+    decrypt_folder_with_accounts(r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\sessions\converted\2025-08-23')
 

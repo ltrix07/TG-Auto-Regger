@@ -1,4 +1,4 @@
-from auto_reger.emulator_handler import Emulator
+from auto_reger.emulator import Emulator
 
 
 def test_check_app_installed():

@@ -1,22 +1,11 @@
 import os
-import re
-import asyncio
 import sys
 import logging
 import subprocess
-import configparser
 from auto_reger.decryptor import get_auth_key_and_dc_id
-import shutil
-import tempfile
 from datetime import datetime
 from TGConvertor.manager import SessionManager
-from auto_reger.adb_handler import run_adb_command
 from AndroidTelePorter import AndroidSession
-from opentele.td import TDesktop
-from opentele.api import CreateNewSession
-from telethon import TelegramClient
-from telethon.sessions import StringSession
-from pathlib import Path
 
 
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
@@ -88,8 +77,8 @@ def transfer_dat_session():
             print(f"Ошибка ADB: {stderr}")
             raise subprocess.CalledProcessError(process.returncode, commands, stderr=stderr)
 
-        run_adb_command(f'adb pull {temp_tgnet_path} {local_tgnet_path}')
-        run_adb_command(f'adb pull {temp_config_path} {local_config_path}')
+        subprocess.run(f'adb pull {temp_tgnet_path} {local_tgnet_path}', check=True)
+        subprocess.run(f'adb pull {temp_config_path} {local_config_path}', check=True)
 
         logging.info("Session files from device was transfer")
     except subprocess.TimeoutExpired:
@@ -114,6 +103,7 @@ def convert_dat_to_session(phone_number):
 
     try:
         session = AndroidSession.from_tgnet(tgnet_path=tgnet_path, userconfig_path=config_path)
+        print(session.auth_key)
         session.to_telethon(session_path)
         logging.info(f"Session for acc_{phone_number} created in {session_path}")
         return True
@@ -149,8 +139,5 @@ def convert_dat_to_tdata(phone_number):
 
 
 if __name__ == '__main__':
-    converter = Converter('./sessions')
-    asyncio.run(
-        converter.tdata_to_session(
-            r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-18\acc_16074181780\tdata')
-    )
+    transfer_dat_session()
+    convert_dat_to_tdata(0000)

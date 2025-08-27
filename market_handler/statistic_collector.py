@@ -1,19 +1,19 @@
 import logging
 import time
 from auto_reger.sms_api import SmsApi
-from auto_reger.lzt_api import LZTAPI
+from LOLZTEAM.Client import Market
 import csv
-import json
-import requests
-from typing import Literal
 
 
 def statistic_collector():
     sms_activate = SmsApi(service='sms-activate',
-                          api_key_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sms_activate_api.txt')
+                          api_key_path=r'/sms_activate_api.txt')
     sms_grizzly = SmsApi(service='grizzly-sms',
-                         api_key_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\grizzly_sms_api.txt')
-    lzt = LZTAPI(token_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\lzt_token.txt')
+                         api_key_path=r'/grizzly_sms_api.txt')
+    with open(r'/lzt_token.txt', 'rb') as file:
+        token = bytes.decode(file.read())
+
+    market = Market(token=token)
 
     country_map_eng_to_rus_and_code = {
         'Afghanistan': {'rus': 'Афганистан', 'code': 'AF'},
@@ -250,19 +250,18 @@ def statistic_collector():
         except Exception:
             pass
 
-        # Get market prices, paginate to collect all
         prices = []
         page = 1
 
         items_qty = 0
         while page <= 5:
-            response = lzt.search_by_category_telegram(
+            response = market.categories.telegram.get(
                 page=page,
                 origin=['self_registration', 'autoreg'],
                 currency='usd',
-                country=[country_code],
                 spam='no',
-                password='no'
+                password='no',
+                country=[country_code]
             )
             if response.status_code != 200:
                 print("Превышено количество запросов. Ждем указанное время...")

@@ -88,7 +88,7 @@ class SmsApi(SMSActivateAPI):
 
     def _get_country_id(self, country):
         if country == 'USA' and 'grizzlysms' in self.api_url:
-            country = 'United States virt'
+            return 12
         countries = self.getCountries()
         for allow_country in countries:
             if countries[allow_country]['eng'] == country:
@@ -101,6 +101,7 @@ class SmsApi(SMSActivateAPI):
 
     def verification_number(self, service, country, max_price=None):
         country_id = self._get_country_id(country)
+        print(country_id)
         number_data = self.getNumberV2(service=service, country=int(country_id), maxPrice=max_price)
 
         return number_data
@@ -134,6 +135,6 @@ class SmsApi(SMSActivateAPI):
 
 
 if __name__ == '__main__':
-    sms = SmsApi(service='sms-activate', api_key_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sms_activate_api.txt')
-    status = sms.get_price('tg', 'Australia')
+    sms = SmsApi(service='grizzly-sms', api_key_path=r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\grizzly_sms_api.txt')
+    status = sms.verification_number('tg', 'USA')
     print(status)

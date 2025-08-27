@@ -314,7 +314,7 @@ def generate_and_set_user_agent():
         )
         commands = [
             "su",
-            f"settingss put global http_user_agent \"{new_user_agent}\"",
+            f"settings put global http_user_agent \"{new_user_agent}\"",
             "exit",
             "exit"
         ]
@@ -329,51 +329,57 @@ def generate_and_set_user_agent():
         return None
 
 
-def change_setting(level, setting_name, value):
+def change_setting(level, setting_name, value, su=False):
     try:
-        process = subprocess.Popen(
-            "adb shell",
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        commands = [
-            "su",
-            f"settingss put {level} {setting_name} {value}",
-            "exit",
-            "exit"
-        ]
-        stdout, stderr = process.communicate("\n".join(commands), timeout=10)
-        if stderr:
-            logging.error(f"Failed to set property {setting_name} id with su: {stderr}")
-            return None
-        logging.info(f"Setting {setting_name} changed to {value}")
+        if su:
+            process = subprocess.Popen(
+                "adb shell",
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            commands = [
+                "su",
+                f"settings put {level} {setting_name} {value}",
+                "exit",
+                "exit"
+            ]
+            stdout, stderr = process.communicate("\n".join(commands), timeout=10)
+            if stderr:
+                logging.error(f"Failed to set property {setting_name} id with su: {stderr}")
+                return None
+            logging.info(f"Setting {setting_name} changed to {value}")
+        else:
+            subprocess.run(f'adb sell settings put {level} {setting_name} {value}')
     except Exception as e:
         logging.error(f"Error setting Device ID: {str(e)}")
         return None
 
 
-def change_prop(setting_name, value):
+def change_prop(setting_name, value, su=False):
     try:
-        process = subprocess.Popen(
-            "adb shell",
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        commands = [
-            "su",
-            f"setprop {setting_name} {value}",
-            "exit",
-            "exit"
-        ]
-        stdout, stderr = process.communicate("\n".join(commands), timeout=10)
-        if stderr:
-            logging.error(f"Failed to set property {setting_name} id with su: {stderr}")
-            return None
-        logging.info(f"Setting {setting_name} changed to {value}")
+        if su:
+            process = subprocess.Popen(
+                "adb shell",
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            commands = [
+                "su",
+                f"setprop {setting_name} {value}",
+                "exit",
+                "exit"
+            ]
+            stdout, stderr = process.communicate("\n".join(commands), timeout=10)
+            if stderr:
+                logging.error(f"Failed to set property {setting_name} id with su: {stderr}")
+                return None
+            logging.info(f"Setting {setting_name} changed to {value}")
+        else:
+            subprocess.run(f'adb shell setprop {setting_name} {value}')
     except Exception as e:
         logging.error(f"Error setting Device ID: {str(e)}")
         return None
@@ -419,7 +425,7 @@ def compare_emulator_settings(udid1, udid2, adb_path=r"C:\Android\platform-tools
 
     def get_settings(udid, namespace):
         """Получает настройки для указанного namespace (secure, global, system)"""
-        command = f'"{adb_path}" -s {udid} shell settingss list {namespace}'
+        command = f'"{adb_path}" -s {udid} shell settings list {namespace}'
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         output, error = process.communicate()
         if error:
@@ -565,7 +571,9 @@ def generate_x509_token():
         return None
 
 
-def reset_telegram_data(udid):
+def reset_data(udid, app_for_clear, prefix=None):
+    if prefix:
+        app_for_clear += prefix
     try:
         # Проверка подключенных устройств
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True)
@@ -577,19 +585,18 @@ def reset_telegram_data(udid):
         adb_prefix = ["adb", "-s", udid] if udid else ["adb"]
 
         # Закрытие Telegram
-        subprocess.run(adb_prefix + ["shell", "am", "force-stop", "org.telegram.messenger"], check=True)
+        subprocess.run(adb_prefix + ["shell", "am", "force-stop", app_for_clear], check=True)
         logging.info("Telegram app closed successfully")
 
         # Очистка данных Telegram
-        subprocess.run(adb_prefix + ["shell", "pm", "clear", "org.telegram.messenger"], check=True)
+        subprocess.run(adb_prefix + ["shell", "pm", "clear", app_for_clear], check=True)
         logging.info("Telegram data cleared successfully")
 
         # Сброс Advertising ID
-        subprocess.run(adb_prefix + ["shell", "settingss", "delete", "secure", "advertising_id"], check=True)
+        subprocess.run(adb_prefix + ["shell", "settings", "delete", "secure", "advertising_id"], check=True)
         logging.info("Advertising ID reset successfully")
 
         # Выбор случайного реального устройства
-        # device = random.choice(REAL_DEVICES)
         device = random.choice(REAL_DEVICES)
 
         new_android_id = generate_android_id()
@@ -615,17 +622,7 @@ def reset_telegram_data(udid):
         change_prop('ro.product.model', device['model'])
         change_prop('ro.product.board', device['board'])
         change_prop('ro.product.name', device['name'])
-
-        services = [
-            'zygote_secondary', 'vendor.bluetooth-1-0', 'console', 'vendor.ril-daemon', 'traced',
-            'cameraserver', 'hidl_memory', 'ueventd', 'vendor.gnss_service', 'vendor.audio-hal-2-0',
-            'usbd', 'vendor.health-hal-2-0', 'tombstoned', 'hwservicemanager', 'vendor.wifi_hal_legacy',
-            'keystore', 'vendor.power-hal-1-1', 'mediametrics', 'surfaceflinger', 'init.selinux'
-        ]
-        for i, service in enumerate(services):
-            change_prop(f'ro.boottime.{service}', boottimes[i])
         change_prop('ro.boottime.init', boottimes[-1])  # init последним
-        change_prop('persist.netd.stable_secret', generate_stable_secret())
         set_random_timezone()
         change_imei()
         run_adb_command('am broadcast -a android.intent.action.LOCALE_CHANGED')
@@ -640,4 +637,4 @@ def reset_telegram_data(udid):
 
 
 if __name__ == '__main__':
-    reset_telegram_data('emulator-5554')
+    reset_data('XED4C18515000819', 'com.instagram.lite')

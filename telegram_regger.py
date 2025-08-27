@@ -1,16 +1,15 @@
 import subprocess
-import psutil
 import time
 import os
 import random
 import logging
 import shutil
 from datetime import datetime
-from auto_reger.adb_handler import reset_telegram_data, run_adb_command, get_device_info
-from auto_reger.utils import read_json, write_json
+from auto_reger.adb import reset_data, run_adb_command, get_device_info
+from auto_reger.utils import read_json, write_json, load_names, get_device_config, kill_emulator, generate_random_string
 from auto_reger.sms_api import SmsApi, remove_activation_from_json, save_activation_to_json, can_set_status_8
-from auto_reger.emulator_handler import Telegram
-from auto_reger.app_handler import Onion, VPN, TelegramDesktop
+from auto_reger.emulator import Telegram
+from auto_reger.app import Onion, VPN, TelegramDesktop
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
@@ -30,6 +29,7 @@ MAX_THREADS = 5
 SMS_TIMEOUT = 120
 COUNTRY = input('Enter country for registration Telegram account (USA, United Kingdom, etc.): ').strip()
 MAX_PRICE = float(input('Enter maximum price: ').strip())
+NEED_CHANGE_LOCATION = False
 
 
 def setup_cech():
@@ -38,11 +38,6 @@ def setup_cech():
     cech_data = {}
     write_json(cech_data, CECH_PATH)
     return cech_data
-
-
-def load_names(file_path):
-    with open(file_path, 'r', encoding='utf-8') as f:
-        return [line.strip() for line in f if line.strip()]
 
 
 def perform_neutral_actions(client):
@@ -78,27 +73,6 @@ def save_session(phone_number, first_name, last_name, email_log, email_pass, act
     session_file = os.path.join(SESSIONS_DIR, f"{phone_number}.json")
     write_json(session_data, session_file)
     logging.info(f"Session saved for {phone_number} at {session_file}")
-
-
-def generate_random_string(length=8):
-    import string
-    return ''.join(random.choice(string.ascii_lowercase) for _ in range(length))
-
-
-def is_process_running(process_name):
-    for proc in psutil.process_iter(['name']):
-        if proc.info['name'].lower() == process_name.lower():
-            return True
-    return False
-
-
-def kill_emulator(app_name):
-    if is_process_running(app_name):
-        subprocess.run(f"taskkill /IM {app_name} /F", shell=True, capture_output=True)
-        time.sleep(2)
-        logging.info(f"Emulator {app_name} terminated")
-    else:
-        logging.info(f"Emulator {app_name} is not running, no need to terminate")
 
 
 def activation_admin(api):
@@ -144,13 +118,13 @@ def create_tdata_with_telegram_desktop(telegram: Telegram, phone_number):
 
 async def create_session_with_telethon(phone_number,
                                        telegram: Telegram,
-                                       device_model,
-                                       system_version,
-                                       app_version,
-                                       sys_lng_code,
-                                       lng_code,
-                                       api_id=6,
-                                       api_hash='eb06d4abfb49dc3eeb1aeb98ae0f581e'):
+                                       device_model='Desktop',
+                                       system_version='Windows 10',
+                                       app_version='5.4.1 x64',
+                                       sys_lng_code='en',
+                                       lng_code='en',
+                                       api_id=2040,
+                                       api_hash='b18441a1ff607e10a989891a5462e627'):
     try:
         # Преобразование phone_number в строку и добавление "+" для международного формата
         phone_number = str(phone_number)
@@ -174,6 +148,7 @@ async def create_session_with_telethon(phone_number,
 
         # Запрос кода
         await client.send_code_request(phone_number)
+        time.sleep(5)
         logging.info(f"Code requested for {phone_number}")
 
         code = telegram.read_sms_with_code()
@@ -267,7 +242,7 @@ def phone_number_send(emulator_obj: Telegram, sms_obj: SmsApi, not_code=False):
 
             if emulator_obj.check_element(By.XPATH, emulator_obj.TOO_MANY_ATTEMPTS, timeout=1):
                 logging.info("Слишком много попыток для этого эмулятора")
-                reset_telegram_data(emulator_obj.udid)
+                reset_data(emulator_obj.udid, emulator_obj.app_package)
                 new_number = False
                 status = 'reset'
                 continue
@@ -316,19 +291,19 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SmsApi, first_names, la
         telegram.click_element(By.XPATH, telegram.YES_BTN, timeout=2)
 
     if telegram.check_element(By.XPATH, telegram.TOO_MANY_ATTEMPTS, timeout=2):
-        reset_telegram_data(telegram.udid)
+        reset_data(telegram.udid, telegram.app_package)
         telegram.start()
         telegram.click_start_messaging()
         telegram.send_number(phone_number)
 
     if telegram.check_element(By.XPATH, telegram.CHECK_EMAIL_TEXT, timeout=2):
-        code = onion.extract_code(second_req=True)
-        run_adb_command(f'input text "{code}"')
+        code = onion.extract_code(service='telegram', second_req=True)
+        subprocess.run(f'adb shell input text "{code}"')
 
     if telegram.check_element(By.XPATH, telegram.ENTER_CODE_TEXT, timeout=2):
         sms_api.setStatus(activation_id, status=3)
         code = sms_api.check_verif_status(activation_id, SMS_TIMEOUT)
-        run_adb_command(f'input text "{code}"')
+        subprocess.run(f'adb shell input text "{code}"')
 
     if telegram.check_element(By.XPATH, telegram.NAME_FIELD, timeout=5):
         first_name = random.choice(first_names) if first_names else generate_random_string(6)
@@ -340,7 +315,8 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SmsApi, first_names, la
         return None, None
 
 
-def register_account(device_config, sms_srvice, sms_api_key_path, first_names, last_names, index):
+def register_telegram_account(device_config, sms_srvice, sms_api_key_path, first_names, last_names, index):
+    global NEED_CHANGE_LOCATION
     telegram = None
     sms_activate = None
     activation_id = None
@@ -349,7 +325,8 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
         is_physical = device_config.get('is_physical', False)
         if is_physical:
             udid = device_config['udid']
-            telegram = Telegram(udid=udid, appium_port=device_config['appium_port'], emulator_path=None, emulator_name=None)
+            telegram = Telegram(udid=udid, appium_port=device_config['appium_port'])
+            telegram.is_physical_device()
             logging.info(f"Using physical device with UDID: {udid} for account {index}")
         else:
             telegram = Telegram(udid=None, appium_port=device_config['appium_port'], emulator_path=device_config['app_path'], emulator_name=device_config['app_name'])
@@ -366,10 +343,14 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
         onion = Onion()
 
         logging.info("Starting reset device data...")
-        reset_telegram_data(telegram.udid)
+        reset_data(telegram.udid, telegram.TELEGRAM_ADB_NAME, telegram.app_prefix)
 
-        # vpn = VPN()
-        # vpn.reconnection()
+        vpn = VPN()
+        if NEED_CHANGE_LOCATION:
+            vpn.change_location(COUNTRY)
+            NEED_CHANGE_LOCATION = False
+        else:
+            vpn.reconnection()
 
         telegram.start()
         telegram.click_start_messaging()
@@ -391,16 +372,17 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
         else:
             username = generate_random_string(8)
             password = generate_random_string(12)
-            email = onion.reg_and_login(username, password, 'onionmail.com')
+            email = onion.reg_and_login(username, password)
             telegram.enter_email(email)
             time.sleep(random.uniform(1, 2))
 
-            email_code = onion.extract_code()
+            email_code = onion.extract_code('telegram')
             if email_code:
-                run_adb_command(f'input text "{email_code}"')
+                subprocess.run(f'adb shell input text "{email_code}"')
                 logging.info(f"Email verification code entered: {email_code}")
                 if telegram.check_element(By.XPATH, '//android.widget.TextView[@text="SMS Fee"]', timeout=2):
                     logging.error("Required premium for continue")
+                    NEED_CHANGE_LOCATION = True
                     return False
             else:
                 logging.error("Failed to get email verification code")
@@ -411,7 +393,7 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
         while True:
             sms_code = sms_activate.check_verif_status(activation_id, timeout=sms_timeout)
             if sms_code:
-                run_adb_command(f'input text "{sms_code}"')
+                subprocess.run(f'adb shell input text "{sms_code}"')
                 logging.info(f"SMS code entered: {sms_code}")
                 break
             else:
@@ -466,48 +448,8 @@ def register_account(device_config, sms_srvice, sms_api_key_path, first_names, l
     finally:
         if telegram is not None:
             telegram.close()
+
         activation_admin(sms_activate)
-
-
-def get_device_config(num_threads, is_physical):
-    devices = []
-    if is_physical:
-        udid = input("Enter UDID of your physical device: ").strip()
-        if not udid:
-            raise ValueError("UDID cannot be empty for physical device")
-        port = input("Enter Appium port for physical device (default 4723): ").strip() or "4723"
-        try:
-            port = int(port)
-            if port < 1024 or port > 65535:
-                raise ValueError("Port must be between 1024 and 65535")
-        except ValueError:
-            raise ValueError("Invalid port number")
-        devices.append({
-            'is_physical': True,
-            'udid': udid,
-            'appium_port': port,
-            'app_path': None,
-            'app_name': None
-        })
-    else:
-        emulator_app_path = input("Enter emulator app path (default: C:\\LDPlayer\\LDPlayer9\\dnplayer.exe): ").strip() or 'C:\\LDPlayer\\LDPlayer9\\dnplayer.exe'
-        emulator_app_name = input("Enter emulator app name (default: dnplayer.exe): ").strip() or 'dnplayer.exe'
-        for i in range(num_threads):
-            port = input(f"Enter Appium port for emulator {i + 1} (default 4723): ").strip() or "4723"
-            try:
-                port = int(port)
-                if port < 1024 or port > 65535:
-                    raise ValueError(f"Port for emulator {i + 1} must be between 1024 and 65535")
-            except ValueError:
-                raise ValueError(f"Invalid port number for emulator {i + 1}")
-            devices.append({
-                'is_physical': False,
-                'udid': None,
-                'appium_port': port,
-                'app_path': emulator_app_path,
-                'app_name': emulator_app_name
-            })
-    return devices
 
 
 def main():
@@ -550,7 +492,7 @@ def main():
         while registered_accounts < num_accounts:
             attempt += 1
             logging.info(f"Attempting to register account {attempt}")
-            success = register_account(device_config, sms_service, sms_api_key_path, first_names, last_names, attempt)
+            success = register_telegram_account(device_config, sms_service, sms_api_key_path, first_names, last_names, attempt)
             if success:
                 registered_accounts += 1
                 logging.info(f"Account registration successful. Total successful: {registered_accounts}/{num_accounts}")

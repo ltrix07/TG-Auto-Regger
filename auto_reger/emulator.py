@@ -7,8 +7,9 @@ import logging
 import pytesseract
 import os
 from PIL import Image
-from auto_reger.adb_handler import connect_adb, get_device_info, run_adb_command
+from auto_reger.adb import connect_adb, get_device_info
 from appium.webdriver.appium_service import AppiumService
+from appium.webdriver.extensions.action_helpers import ActionHelpers
 from appium.options.common import AppiumOptions
 from appium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -25,6 +26,11 @@ class Emulator:
     adb_user = input('ADB path (default: C:\\Android\\platform-tools\\adb.exe): ')
     ADB_PATH = r"C:\Android\platform-tools\adb.exe" if adb_user == '' else adb_user
 
+    ALLOW_BTN = '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]'
+    ALLOW_CALLING_MESSAGE = '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]'
+    ALLOW_CALLING_LIST_MESSAGE = (
+        '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]')
+
     def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None, physical_device=False):
         self.udid = udid
         self.appium_port = appium_port
@@ -32,6 +38,7 @@ class Emulator:
         self.emulator_name = emulator_name
         self.driver = None
         self.appium_service = None
+        self.is_physical = None
 
         if physical_device:
             self.udid = input("Input UDID of your physical device: ")
@@ -141,7 +148,7 @@ class Emulator:
             logging.error(f"Failed to create WebDriver: {e}")
             raise RuntimeError(f"Failed to create WebDriver: {e}")
 
-    def check_element(self, by, value, timeout=5):
+    def check_element(self, by, value, timeout=30):
         wait = WebDriverWait(self.driver, timeout)
         try:
             return wait.until(EC.presence_of_element_located((by, value)))
@@ -234,10 +241,6 @@ class Telegram(Emulator):
     YES_BTN = '//android.widget.TextView[@text="Yes"]'
     EMAIL_INPUT = '//android.widget.EditText'
     CONTINUE_BTN = '//android.widget.TextView[@text="Continue"]'
-    ALLOW_BTN = '//android.widget.Button[@resource-id="com.android.packageinstaller:id/permission_allow_button"]'
-    ALLOW_CALLING_MESSAGE = '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]'
-    ALLOW_CALLING_LIST_MESSAGE = (
-        '//android.widget.TextView[@resource-id="com.android.packageinstaller:id/permission_message"]')
     TELEGRAM_APP = '//android.widget.TextView[@content-desc="Telegram"]'
     NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.widget.EditText'
     LAST_NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[2]/android.widget.EditText'
@@ -258,13 +261,20 @@ class Telegram(Emulator):
     MESSAGES_BOX = '//androidx.recyclerview.widget.RecyclerView'
     ACCEPT_BTN = '//android.widget.TextView[@text="Accept"]'
     GET_CODE_VIA_SMS = '//android.widget.TextView[@text="Get the code via SMS"]'
+    TELEGRAM_ADB_NAME = 'org.telegram.messenger'
 
-    def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None):
+    def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None, app_prefix=''):
         super().__init__(udid, appium_port, emulator_path, emulator_name)
-        self.app_package = 'org.telegram.messenger'
-        self.app_action_for_start = 'org.telegram.messenger/org.telegram.ui.LaunchActivity'
+        self.app_prefix = app_prefix
+        self.app_package = 'org.telegram.messenger' + self.app_prefix
+        self.app_action_for_start = f'org.telegram.messenger{self.app_prefix}/org.telegram.ui.LaunchActivity'
 
-    def start(self, like_human=True):
+    def is_physical_device(self):
+        self.is_physical = True
+        self.NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.EditText'
+        self.LAST_NAME_FIELD = '//android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.EditText'
+
+    def start(self, like_human=True, prefix=None):
         if not self.check_app_installed(self.app_package):
             logging.error(f"Telegram ({self.app_package}) is not installed on {self.udid}")
             raise RuntimeError(f"Telegram ({self.app_package}) is not installed on {self.udid}")
@@ -440,8 +450,8 @@ class Telegram(Emulator):
                 logging.info(f"Message text: {message_text}")
 
                 # Извлечение кода с помощью регулярного выражения
-                code_pattern = r'Login code: (\d{5})'
-                match = re.search(code_pattern, message_text)
+                code_pattern_en = r'(\d{5})'
+                match = re.search(code_pattern_en, message_text)
                 if match:
                     code = match.group(1)
                     logging.info(f"Code found: {code}")
@@ -461,6 +471,69 @@ class Telegram(Emulator):
         self.click_element(By.XPATH, self.LOG_OUT_OPTIONS)
         self.click_element(By.XPATH, self.LOG_OUT_BTN)
         self.click_element(By.XPATH, self.LOG_OUT_BTN)
+
+
+class Instagram(Emulator):
+    INSTAGRAM_ADB_NAME = None
+    INSTAGRAM_APP = '//android.widget.TextView[@content-desc="Instagram Lite"]'
+    CREATE_ACC_BTN = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[2]/android.view.ViewGroup[2]'
+    CREATE_BY_EMAIL = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.View'
+    EMAIL_FIELD = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.View'
+    NEXT_BTN = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[2]'
+    NEXT_BTN_IN_PASS_ENTER = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[4]'
+    NEXT_BTN_IN_BIRTH_ENTER = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[3]/android.view.ViewGroup[2]'
+    NEXT_BTN_IN_FOLLOW_WINDOW = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[4]/android.view.ViewGroup'
+    CODE_FIELD = '//android.widget.MultiAutoCompleteTextView[@text="_ _ _  _ _ _"]'
+    FULL_NAME_FIELD = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[1]/android.widget.MultiAutoCompleteTextView[1]'
+    PASS_FIELD = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[1]/android.widget.MultiAutoCompleteTextView[2]'
+    ADD_YOUR_BIRTH_TXT = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[4]/android.view.View[2]'
+    DAY_BIRTH_WIDGET = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[3]/androidx.recyclerview.widget.RecyclerView[1]'
+    MONTH_BIRTH_WIDGET = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[3]/androidx.recyclerview.widget.RecyclerView[2]'
+    YEAR_BIRTH_WIDGET = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[3]/androidx.recyclerview.widget.RecyclerView[3]'
+    CHANGE_USERNAME_BTN = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[3]/android.view.ViewGroup[6]/android.view.View'
+    USERNAME_FIELD = '//android.widget.MultiAutoCompleteTextView'
+    SKIP_CONTACTS_BTN = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[4]/android.view.ViewGroup[3]/android.view.View'
+    SKIP_ADD_PHOTO_BTN = '//android.widget.FrameLayout[@resource-id="com.instagram.lite:id/main_layout"]/android.widget.FrameLayout/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.View'
+    POST = '//android.widget.ImageView'
+
+    def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None, is_lite=False):
+        super().__init__(udid, appium_port, emulator_path, emulator_name)
+        if is_lite:
+            self.INSTAGRAM_ADB_NAME = 'com.instagram.lite'
+        else:
+            self.INSTAGRAM_ADB_NAME = 'com.instagram.android'
+
+    def start(self):
+        self.do_activity()
+        self.click_element(By.XPATH, self.INSTAGRAM_APP, 10)
+
+    def choose_random_birth_date(self):
+        day_container = self.driver.find_element(By.XPATH, self.DAY_BIRTH_WIDGET)
+        month_container = self.driver.find_element(By.XPATH, self.MONTH_BIRTH_WIDGET)
+        year_container = self.driver.find_element(By.XPATH, self.YEAR_BIRTH_WIDGET)
+
+        for _ in range(7):
+            items = year_container.find_elements(By.XPATH, ".//*")
+            first_item = items[0]
+            last_item = items[-1]
+
+            self.driver.scroll(origin_el=last_item, destination_el=first_item, duration=100)
+            time.sleep(0.2)
+
+        items = year_container.find_elements(By.XPATH, ".//*")
+        if items:
+            element_to_click = random.choice(items)
+            element_to_click.click()
+
+        items = day_container.find_elements(By.XPATH, ".//*")
+        if items:
+            element_to_click = random.choice(items)
+            element_to_click.click()
+
+        items = month_container.find_elements(By.XPATH, ".//*")
+        if items:
+            element_to_click = random.choice(items)
+            element_to_click.click()
 
 
 if __name__ == '__main__':

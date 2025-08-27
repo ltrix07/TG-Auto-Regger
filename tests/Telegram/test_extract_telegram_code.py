@@ -1,4 +1,4 @@
-from auto_reger.emulator_handler import Telegram
+from auto_reger.emulator import Telegram
 
 
 def test_extract_telegram_code():
