@@ -5,10 +5,23 @@ import psutil
 import random
 import logging
 import os
+import yaml
+from pathlib import Path
 from datetime import datetime
 
 
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+
+
+def load_config(file_name='config.yaml'):
+    proj_root = Path(__file__).resolve().parent.parent
+    config_path = proj_root / file_name
+
+    if config_path.exists():
+        raise FileNotFoundError(f'Config file not found: {config_path}')
+
+    with open(config_path, 'r', encoding='utf-8') as f:
+        return yaml.safe_load(f)
 
 
 def read_json(path):

@@ -1,0 +1,23 @@
+# main server settings
+server:
+  host: "192.168.1.116"
+  user: "goodfox"
+  base_path: "~/TG_ACCOUNTS_MEGA/market_handler/accounts/"
+
+# telegram_regger.py settings
+telegram_app:
+  max_threads: 5
+  sms_timeout: 120
+
+# auto_upload_items.py settings
+auto_upload_app:
+  interval_minutes: 1440
+  resting_region_time:
+    USA: 7
+    Cyprus: 2
+    Turkey: 5
+    Ukraine: 3
+  path:
+    accounts: "./accounts"
+    uploaded: "./uploaded_log.json"
+    actual_info: "./actual_info.json"

@@ -4,34 +4,32 @@ import os
 import random
 import logging
 import shutil
+import sys
 from datetime import datetime
-from auto_reger.adb import reset_data, run_adb_command, get_device_info
-from auto_reger.utils import read_json, write_json, load_names, get_device_config, kill_emulator, generate_random_string
+from auto_reger.adb import reset_data, get_device_info
+from auto_reger.utils import read_json, write_json, load_names, get_device_config, kill_emulator, generate_random_string, \
+    load_config
 from auto_reger.sms_api import SmsApi, remove_activation_from_json, save_activation_to_json, can_set_status_8
 from auto_reger.emulator import Telegram
 from auto_reger.app import Onion, VPN, TelegramDesktop
-from auto_reger.decryptor import decrypt_folder_with_accounts, get_auth_key_and_dc_id
+from auto_reger.decryptor import get_auth_key_and_dc_id
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.sync import TelegramClient
 
-# Настройка кодировки для корректного вывода
-import sys
 sys.stdout.reconfigure(encoding='utf-8')
 
-# Настройка логирования
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
 CECH_PATH = './cech.json'
 SESSIONS_DIR = './sessions/converted'
-MAX_THREADS = 5
-SMS_TIMEOUT = 120
 COUNTRY = input('Enter country for registration Telegram account (USA, United Kingdom, etc.): ').strip()
 MAX_PRICE = float(input('Enter maximum price: ').strip())
 NEED_CHANGE_LOCATION = False
 FOLDER_NAME_WITH_ACCOUNTS = None
+CONFIG = load_config()
 
 
 def setup_cech():
@@ -299,7 +297,7 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SmsApi, first_names, la
 
     if telegram.check_element(By.XPATH, telegram.ENTER_CODE_TEXT, timeout=2):
         sms_api.setStatus(activation_id, status=3)
-        code = sms_api.check_verif_status(activation_id, SMS_TIMEOUT)
+        code = sms_api.check_verif_status(activation_id, CONFIG['telegram_app']['sms_timeout'])
         subprocess.run(f'adb shell input text "{code}"')
 
     if telegram.check_element(By.XPATH, telegram.NAME_FIELD, timeout=5):
@@ -387,7 +385,7 @@ def register_telegram_account(device_config, sms_srvice, sms_api_key_path, first
                 activation_admin(sms_activate)
                 return False
 
-        sms_timeout = SMS_TIMEOUT
+        sms_timeout = CONFIG['telegram_app']['sms_timeout']
         while True:
             sms_code = sms_activate.check_verif_status(activation_id, timeout=sms_timeout)
             if sms_code:
@@ -518,7 +516,10 @@ def main():
         elapsed_time = end_time - start_time
         per_account = elapsed_time / registered_accounts
         today = datetime.now().strftime('%Y-%m-%d')
-        subprocess.run(f'scp {FOLDER_NAME_WITH_ACCOUNTS} goodfox@192.168.1.116:~/TG_ACCOUNTS_MEGA/market_handler/accounts/{today}_{COUNTRY}')
+        subprocess.run(
+            f'scp -r {FOLDER_NAME_WITH_ACCOUNTS} {CONFIG["server"]["user"]}@{CONFIG["server"]["host"]}:{CONFIG["server"]["base_path"]}{today}_{COUNTRY}',
+            shell=True
+        )
         print(f"Скрипт выполнен за {(elapsed_time / 60):.2f} минут")
         print(f"Среднее время на 1 аккаунт {(per_account / 60):.2f} минут")
 

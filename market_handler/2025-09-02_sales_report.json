@@ -1,0 +1,27 @@
+[
+    {
+        "hour": 23,
+        "sales_count": 30,
+        "total_amount": 44.60328251525342
+    },
+    {
+        "hour": 8,
+        "sales_count": 22,
+        "total_amount": 39.3688939524444
+    },
+    {
+        "hour": 10,
+        "sales_count": 22,
+        "total_amount": 40.856208873450676
+    },
+    {
+        "hour": 22,
+        "sales_count": 20,
+        "total_amount": 31.425107779585623
+    },
+    {
+        "hour": 14,
+        "sales_count": 18,
+        "total_amount": 30.97795583109146
+    }
+]
