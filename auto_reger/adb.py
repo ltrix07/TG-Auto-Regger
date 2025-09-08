@@ -192,8 +192,6 @@ def get_device_info(udid):
         full_model = random.choice([device['full_name'] for device in REAL_DEVICES])
         logging.warning(f"Model {device_model} not found in REAL_DEVICES, using random full_name: {full_model}")
 
-    print(f"Device Info: Android Version={android_version}, API Level={api_level}, ABI={abi}, Device Model={device_model} "
-          f"Telegram Version={tg_version}, System language={sys_lang}")
     return {
         'model': device_model,
         'full_model': full_model,
@@ -637,4 +635,4 @@ def reset_data(udid, app_for_clear, prefix=None):
 
 
 if __name__ == '__main__':
-    reset_data('XED4C18515000819', 'com.instagram.lite')
+    reset_data('emulator-5554', 'com.instagram.android')

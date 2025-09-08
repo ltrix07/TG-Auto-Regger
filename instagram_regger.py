@@ -80,7 +80,7 @@ def register_instagram_account(device_config, first_names, last_names, index, is
 
         instagram.choose_random_birth_date()
         time.sleep(random.uniform(1, 2))
-        instagram.click_element(By.XPATH, instagram.NEXT_BTN_IN_BIRTH_ENTER)
+        instagram.click_element(By.XPATH, instagram.NEXT_BTN)
 
         if instagram.check_element(By.XPATH, instagram.CHANGE_USERNAME_BTN):
             instagram.click_element(By.XPATH, instagram.CHANGE_USERNAME_BTN)
@@ -92,15 +92,18 @@ def register_instagram_account(device_config, first_names, last_names, index, is
         else:
             raise Exception(f"Not found change username button")
 
-        time.sleep(4)
-        logging.info(f"Account registered successfully: {index} | {username}:{password_inst}:{email}:{password_email}")
-        save_instagram_data({
-            'login': username,
-            'password': password_inst,
-            'email': email,
-            'email_password': password_email
-        })
-        return True
+        if instagram.wait_for_element_to_disappear(By.XPATH, instagram.USERNAME_FIELD, 30):
+            instagram.click_element(By.XPATH, instagram.SKIP_CONTACTS_BTN, 3)
+            instagram.click_element(By.XPATH, instagram.SKIP_ADD_PHOTO_BTN, 3)
+
+            logging.info(f"Account registered successfully: {index} | {username}:{password_inst}:{email}:{password_email}")
+            save_instagram_data({
+                'login': username,
+                'password': password_inst,
+                'email': email,
+                'email_password': password_email
+            })
+            return True
 
     except Exception as e:
         logging.error(f"Registration failed for account {index}: {str(e)}")

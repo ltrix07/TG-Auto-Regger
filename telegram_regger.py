@@ -10,6 +10,7 @@ from auto_reger.utils import read_json, write_json, load_names, get_device_confi
 from auto_reger.sms_api import SmsApi, remove_activation_from_json, save_activation_to_json, can_set_status_8
 from auto_reger.emulator import Telegram
 from auto_reger.app import Onion, VPN, TelegramDesktop
+from auto_reger.decryptor import decrypt_folder_with_accounts, get_auth_key_and_dc_id
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
@@ -24,12 +25,13 @@ sys.stdout.reconfigure(encoding='utf-8')
 logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 
 CECH_PATH = './cech.json'
-SESSIONS_DIR = './sessions/JSON'
+SESSIONS_DIR = './sessions/converted'
 MAX_THREADS = 5
 SMS_TIMEOUT = 120
 COUNTRY = input('Enter country for registration Telegram account (USA, United Kingdom, etc.): ').strip()
 MAX_PRICE = float(input('Enter maximum price: ').strip())
 NEED_CHANGE_LOCATION = False
+FOLDER_NAME_WITH_ACCOUNTS = None
 
 
 def setup_cech():
@@ -56,23 +58,16 @@ def perform_neutral_actions(client):
         logging.error(f"Failed neutral actions: {str(e)}")
 
 
-def save_session(phone_number, first_name, last_name, email_log, email_pass, activation_cost,
-                 device_model, android_v, tg_v, system_lang):
-    session_data = {
-        'phone_number': phone_number,
-        'first_name': first_name,
-        'last_name': last_name,
-        'email_login': email_log,
-        'email_password': email_pass,
-        'activation_cost': activation_cost,
-        'device_model': device_model,
-        'android': android_v,
-        'telegram_version': tg_v,
-        'system_lang': system_lang
-    }
-    session_file = os.path.join(SESSIONS_DIR, f"{phone_number}.json")
-    write_json(session_data, session_file)
-    logging.info(f"Session saved for {phone_number} at {session_file}")
+def save_session(**kwargs):
+    today = datetime.now().strftime('%Y-%m-%d')
+    session_dir = os.path.join(SESSIONS_DIR, today, 'json')
+    os.makedirs(session_dir, exist_ok=True)
+
+    session_file = os.path.join(session_dir, f"{kwargs.get('phone_number', 'unknown')}.json")
+    write_json(kwargs, session_file)
+    logging.info(f"Session saved for {kwargs.get('phone_number')} at {session_file}")
+
+    return session_dir
 
 
 def activation_admin(api):
@@ -114,6 +109,8 @@ def create_tdata_with_telegram_desktop(telegram: Telegram, phone_number):
 
     os.system(f"taskkill /F /IM Telegram.exe")
     os.remove(tg_app_path)
+
+    return account_dir
 
 
 async def create_session_with_telethon(phone_number,
@@ -317,6 +314,7 @@ def check_2fa(telegram: Telegram, onion: Onion, sms_api: SmsApi, first_names, la
 
 def register_telegram_account(device_config, sms_srvice, sms_api_key_path, first_names, last_names, index):
     global NEED_CHANGE_LOCATION
+    global FOLDER_NAME_WITH_ACCOUNTS
     telegram = None
     sms_activate = None
     activation_id = None
@@ -426,19 +424,30 @@ def register_telegram_account(device_config, sms_srvice, sms_api_key_path, first
             return False
 
         device_info = get_device_info(telegram.udid)
-        save_session(phone_number=phone_number,
-                     first_name=first_name,
-                     last_name=last_name,
-                     email_log=f"{username}@onionmail.org" if username else None,
-                     email_pass=password,
-                     activation_cost=number_price,
-                     device_model=device_info['model'],
-                     android_v=device_info['android'],
-                     tg_v=device_info['tg'],
-                     system_lang=device_info['sys_lang'])
 
-        create_tdata_with_telegram_desktop(telegram, phone_number)
+        acc_dir = create_tdata_with_telegram_desktop(telegram, phone_number)
+        two_fa = telegram.set_2fa(generate_random_string(12))
+
+        auth_data = get_auth_key_and_dc_id(os.path.join(acc_dir, 'tdata'))
+
         logging.info(f"Account registered successfully: {phone_number}")
+        session_dir = save_session(
+            phone_number=phone_number,
+            first_name=first_name,
+            last_name=last_name,
+            email_login=f"{username}@onionmail.org" if username else None,
+            email_password=password,
+            activation_cost=number_price,
+            device_model=device_info['model'],
+            android=device_info['android'],
+            telegram_version=device_info['tg'],
+            system_lang=device_info['sys_lang'],
+            auth_data=auth_data,
+            telegram_2fa=two_fa
+        )
+
+        if FOLDER_NAME_WITH_ACCOUNTS is None:
+            FOLDER_NAME_WITH_ACCOUNTS = session_dir
         return True
 
     except Exception as e:
@@ -508,6 +517,8 @@ def main():
         end_time = time.time()
         elapsed_time = end_time - start_time
         per_account = elapsed_time / registered_accounts
+        today = datetime.now().strftime('%Y-%m-%d')
+        subprocess.run(f'scp {FOLDER_NAME_WITH_ACCOUNTS} goodfox@192.168.1.116:~/TG_ACCOUNTS_MEGA/market_handler/accounts/{today}_{COUNTRY}')
         print(f"Скрипт выполнен за {(elapsed_time / 60):.2f} минут")
         print(f"Среднее время на 1 аккаунт {(per_account / 60):.2f} минут")
 

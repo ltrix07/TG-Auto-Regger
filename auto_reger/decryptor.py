@@ -3,6 +3,7 @@ from auto_reger.utils import write_json
 from tdesktop_decrypter.decrypter import TdataReader
 from tdesktop_decrypter.cli import display_setting_value
 from tdesktop_decrypter.decrypter import NoKeyFileException
+import subprocess
 
 
 def display_json(parsed_tdata):
@@ -39,17 +40,21 @@ def get_auth_key_and_dc_id(tdata_path, passcode=None):
         json_data = display_json(parsed_data)
         for account in json_data['accounts']:
             if account['index'] == 0:
+                dc_id = account['main_dc_id']
+                auth_key = account['dc_auth_keys'][dc_id]
+                user_id = account['user_id']
                 return {
-                    'dc_id': [dc_id for dc_id in account['dc_auth_keys'].keys()][0],
-                    'auth_key': [auth_key for auth_key in account['dc_auth_keys'].values()][0],
-                    'user_id': account['user_id']
+                    'dc_id': dc_id,
+                    'auth_key': auth_key,
+                    'user_id': user_id
                 }
     except NoKeyFileException as exc:
         print(f"No key file was found. Is the tdata path correct?: {exc}")
 
 
-def decrypt_folder_with_accounts(folder_path):
+def decrypt_folder_with_accounts(folder_path, country):
     accounts_folder_list = os.listdir(folder_path)
+    last_folder = os.path.basename(folder_path)
     items_data = []
     errors = []
     for acc_folder in accounts_folder_list:
@@ -64,10 +69,20 @@ def decrypt_folder_with_accounts(folder_path):
             print(f"В папке аккаунта {acc_folder} не найдено данных для декодирования")
 
     print(f"Раскодировано {len(items_data)} аккаунтов")
-    write_json(items_data, os.path.join(folder_path, 'items_data.json'))
-    write_json(errors, os.path.join(folder_path, 'errors.json'))
+    file_name = f'{last_folder}_{country}.json'
+    write_json(items_data, os.path.join(folder_path, file_name))
+
+    if len(errors) > 0:
+        write_json(errors, os.path.join(folder_path, 'errors.json'))
+
+    full_file_path = os.path.join(folder_path, file_name)
+    return full_file_path
 
 
 if __name__ == '__main__':
-    decrypt_folder_with_accounts(r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\sessions\converted\2025-08-23')
+    data_file_path = decrypt_folder_with_accounts(
+        r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-09-06',
+        'USA'
+    )
+    subprocess.run(f'scp {data_file_path} goodfox@192.168.1.116:~/TG_ACCOUNTS_MEGA/market_handler/accounts/')
 

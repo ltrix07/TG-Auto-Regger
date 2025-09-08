@@ -2,14 +2,15 @@ import json
 import time
 import schedule
 from datetime import datetime as dt
-from datetime import timedelta, timezone
+from datetime import timezone
 from collections import Counter, defaultdict
-from market_handler.market import market
+from market import market
 
 
 def get_all_payment_invoice():
     page = 1
     invoices = []
+    offset_seconds = None
     while True:
         response = market.payments.history(
             page=page,
@@ -19,22 +20,26 @@ def get_all_payment_invoice():
         for order_data in response['payments'].values():
             invoices.append(order_data)
 
+        if not offset_seconds:
+            server_date = dt.fromtimestamp(response['system_info']['time'], tz=timezone.utc).replace(tzinfo=None)
+            offset_seconds = (dt.now() - server_date).total_seconds()
+
         if response['hasNextPage'] is False:
             break
         page += 1
 
-    return invoices
+    return invoices, offset_seconds
 
 
-def count_by_hour(invoices):
+def count_by_hour(invoices, offset_seconds):
     sales_by_hour = Counter()
     amount_by_hour = defaultdict(float)
 
-    tz = timezone(timedelta(hours=2))
+    offset_hours = int(round(offset_seconds / 3600))
 
     for inv in invoices:
-        date = dt.fromtimestamp(inv['operation_date'], tz=timezone.utc).astimezone(tz)
-        hour = date.hour
+        date = dt.fromtimestamp(inv['operation_date'], tz=timezone.utc)
+        hour = int((date.hour + offset_hours) % 24)
         sales_by_hour[hour] += 1
         amount_by_hour[hour] += float(inv['incoming_sum'])
 
@@ -72,8 +77,8 @@ def format_and_save_data(sales_count, total_amount, limit=5):
 
 
 def collect_statistic():
-    invoices = get_all_payment_invoice()
-    sales_count, total_amount = count_by_hour(invoices)
+    invoices, offset = get_all_payment_invoice()
+    sales_count, total_amount = count_by_hour(invoices, offset)
     format_and_save_data(sales_count, total_amount)
 
 

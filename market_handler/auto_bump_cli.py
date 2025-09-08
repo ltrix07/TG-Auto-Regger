@@ -1,12 +1,11 @@
 import time
 from datetime import datetime as dt
-from datetime import timedelta, timezone
-from market_handler.market import market, get_my_accounts
+from datetime import timedelta
+from market import market, get_my_accounts, ACCOUNT_DATA_FOR_COUNTRY
 from utils import read_json, write_json
 
 
 def _ceil_to_hour(t: dt) -> dt:
-    """Округление вверх до начала следующего часа (или сохранение, если уже ровно час)."""
     if t.minute == 0 and t.second == 0 and t.microsecond == 0:
         return t.replace(microsecond=0)
     return (t.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1))
@@ -18,7 +17,6 @@ def _ensure_datetime(x):
     if isinstance(x, dt):
         return x
     if isinstance(x, str):
-        # ожидаемый формат: "dd.mm.YYYY HH:MM"
         try:
             return dt.strptime(x, "%d.%m.%Y %H:%M")
         except Exception:
@@ -45,13 +43,11 @@ def plan_boosts(now=None, last_group_start=None):
     boosts_available = 5
     six_hours = timedelta(hours=6)
 
-    # минимальное время для нового старта = now или last_group_start + 6ч
     if last_group_start:
         next_available = max(now, last_group_start + six_hours)
     else:
         next_available = now
 
-    # FIX: NA округляем ВВЕРХ до часа
     na_hourly = _ceil_to_hour(next_available)  # <-- ключевая правка
 
     today = now.date()
@@ -153,24 +149,23 @@ def bump_old_item():
         show='active',
         origin=['autoreg'],
         spam='no',
-        country_code=['US'],
-        order_by='pdate_to_up'
+        country_code=[value["country_code"] for value in ACCOUNT_DATA_FOR_COUNTRY.values()]
     )
 
-    for item in my_items:
+    sticky_items = []
+    reversed_items_list = my_items[::-1]
+    for item in reversed_items_list:
         if item['is_sticky'] == 1:
-            print(f"Товар {item['item_id']} откреплён")
-            market.managing.unstick(item['item_id'])
-            break
+            sticky_items.append(item['item_id'])
 
-    target_item = None
-    for item in my_items:
-        if item['is_sticky'] == 0:
-            target_item = item
-            break
+    if len(sticky_items) >= 3:
+        market.managing.unstick(sticky_items[0])
+        print(f"Item {sticky_items[0]} is unstick")
+
+    target_item = reversed_items_list[0]
 
     response = market.managing.bump(target_item['item_id']).json()
-    if 'errors' in response.json():
+    if 'errors' in response:
         print(f"Item {target_item['item_id']} can't be bump with error: {response['errors']}")
     else:
         print(f"Item {target_item['item_id']} bumped")
@@ -201,7 +196,7 @@ def bump_old_item_loop(time_out, times):
 
         target_item = my_items[0]
         response = market.managing.bump(target_item['item_id'])
-        print(response.json())
+        print(response)
         if 'errors' in response.json():
             print(f"Item {target_item['item_id']} can't be bump with: {response['error']}")
         print(f"Item {target_item['item_id']} bumped")

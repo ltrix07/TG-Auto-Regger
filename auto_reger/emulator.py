@@ -262,6 +262,16 @@ class Telegram(Emulator):
     ACCEPT_BTN = '//android.widget.TextView[@text="Accept"]'
     GET_CODE_VIA_SMS = '//android.widget.TextView[@text="Get the code via SMS"]'
     TELEGRAM_ADB_NAME = 'org.telegram.messenger'
+    GO_BACK_BTN = '//android.widget.ImageView[@content-desc="Go back"]'
+    PRIVACY_AND_SECURITY_BTN = '//android.widget.TextView[@text="Privacy and Security"]'
+    TWO_STEP_VERIF_BTN = '//android.widget.TextView[@text="Two-Step Verification"]'
+    SET_PASSWORD_BTN = '//android.widget.TextView[@text="Set Password"]'
+    ENTER_PASSWORD_FIELD = '//android.widget.EditText[@content-desc="Enter password"]'
+    NEXT_BTN = '//android.widget.FrameLayout[@content-desc="Next"]'
+    REENTER_PASSWORD_FIELD = '//android.widget.EditText[@content-desc="Re-enter password"]'
+    HINT_FIELD = '//android.widget.EditText[@content-desc="Hint"]'
+    SKIP_BTN = '//android.widget.TextView[@text="Skip"]'
+    RETURN_TO_SETTINGS_BTN = '//android.widget.TextView[@text="Return to Settings"]'
 
     def __init__(self, udid=None, appium_port=4723, emulator_path=None, emulator_name=None, app_prefix=''):
         super().__init__(udid, appium_port, emulator_path, emulator_name)
@@ -464,6 +474,26 @@ class Telegram(Emulator):
                 logging.error(f"Error extracting code: {str(e)}")
                 return None
 
+    def set_2fa(self, password, hint="my password"):
+        self.click_element(By.XPATH, self.GO_BACK_BTN)
+        self.click_element(By.XPATH, self.MENU_BTN)
+        self.click_element(By.XPATH, self.SETTINGS_BTN)
+        self.click_element(By.XPATH, self.PRIVACY_AND_SECURITY_BTN)
+        self.click_element(By.XPATH, self.TWO_STEP_VERIF_BTN)
+        self.click_element(By.XPATH, self.SET_PASSWORD_BTN)
+        self.send_keys(By.XPATH, self.ENTER_PASSWORD_FIELD, password)
+        self.click_element(By.XPATH, self.NEXT_BTN)
+        self.send_keys(By.XPATH, self.REENTER_PASSWORD_FIELD, password)
+        self.click_element(By.XPATH, self.NEXT_BTN)
+        self.send_keys(By.XPATH, self.HINT_FIELD, hint)
+        self.click_element(By.XPATH, self.NEXT_BTN)
+        self.click_element(By.XPATH, self.NEXT_BTN)
+        self.click_element(By.XPATH, self.SKIP_BTN)
+        self.click_element(By.XPATH, self.SKIP_BTN)
+        self.click_element(By.XPATH, self.RETURN_TO_SETTINGS_BTN)
+
+        return {'password': password, 'hint': hint}
+
     def account_log_out(self):
         self.click_element(By.XPATH, self.MENU_BTN)
         self.click_element(By.XPATH, self.SETTINGS_BTN)
@@ -537,11 +567,11 @@ class Instagram(Emulator):
 
 
 if __name__ == '__main__':
-    telegram = Telegram('emulator-5554')
+    telegram = Telegram('XED4C18515000819')
     telegram.do_activity(capabilities={
         "platformName": "Android",
-        "appium:deviceName": 'emulator-5554',
-        "appium:udid": 'emulator-5554',
+        "appium:deviceName": 'XED4C18515000819',
+        "appium:udid": 'XED4C18515000819',
         "appium:automationName": "UiAutomator2",
     })
-    telegram.read_sms_with_code()
+    telegram.set_2fa(123123123)

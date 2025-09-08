@@ -21,6 +21,11 @@ def write_json(obj, path):
         return json.dump(obj, f_o, indent=4)
 
 
+def read_txt_list(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f_o:
+        return f_o.readlines()
+
+
 def load_names(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         return [line.strip() for line in f if line.strip()]
@@ -32,7 +37,7 @@ def generate_random_string(length=8):
 
 
 def save_instagram_data(new_data):
-    data_dir = os.path.join(os.path.dirname(__file__), 'instagram')
+    data_dir = 'instagram'
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
 

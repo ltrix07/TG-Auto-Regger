@@ -24,16 +24,22 @@ DESCRIPTION = """Бонус за отзыв:
 Надежность, качество, поддержка — ваш успех с нашими аккаунтами!"""
 
 ACCOUNT_DATA_FOR_COUNTRY = {
-    "US": {"title": "+1 - США | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
-           "title_en": "+1 - USA | New account | Entrance from any device", "price": 0.93},
-    "CY": {"title": "+357 КИПР | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
-           "title_en": "+357 Cyprus | New account | Entrance from any device", "price": 4},
-    "TR": {"title": "+90 ТУРЦИЯ | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
-           "title_en": "+90 Türkiye | New account | Entrance from any device", "price": 3.5},
-    "PL": {"title": "+48 ПОЛЬША | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
-           "title_en": "+48 Poland | New account | Entrance from any device", "price": 2.4}
+    "USA": {"title": "+1 - США | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
+           "title_en": "+1 - USA | New account | Entrance from any device", "price": 0.93, "country_code": "UA"},
+    "Cyprus": {"title": "+357 КИПР | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
+           "title_en": "+357 Cyprus | New account | Entrance from any device", "price": 4, "country_code": "CY"},
+    "Turkey": {"title": "+90 ТУРЦИЯ | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
+           "title_en": "+90 Türkiye | New account | Entrance from any device", "price": 3.5, "country_code": "TR"},
+    "Poland": {"title": "+48 ПОЛЬША | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
+           "title_en": "+48 Poland | New account | Entrance from any device", "price": 2.4, "country_code": "PL"},
+    "Ukraine": {"title": "+380 УКРАИНА | НОВЫЙ АККАУНТ | ВХОД С ЛЮБОГО УСТРОЙСТВА",
+                "title_en": "+380 UKRAINE | New account | Entrance from any device", "price": 8, "country_code": "UA"}
 }
-
+TELEGRAM_CLIENT = {
+    "telegram_device_model": "Aspire A715-42G",
+    "telegram_system_version": "Windows 10 x64",
+    "telegram_app_version": "6.1.2 x64"
+}
 TOKEN_PATH = r'C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\lzt_token.txt'
 with open(TOKEN_PATH, 'rb') as file:
     TOKEN = bytes.decode(file.read())
@@ -48,7 +54,7 @@ def delete_item(item_id, reason='test'):
     return response.json()
 
 
-def get_my_accounts(category_id: int, show: str, origin: list, spam: str, country_code: list, order_by):
+def get_my_accounts(category_id: int, show: str, origin: list, spam: str, country_code: list = None, order_by=None):
     page = 1
     items = []
     while True:

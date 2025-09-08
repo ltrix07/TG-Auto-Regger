@@ -1,8 +1,13 @@
 import os
 import sys
 import logging
+import asyncio
 import subprocess
+import struct
 from auto_reger.decryptor import get_auth_key_and_dc_id
+from telethon.sessions import SQLiteSession, MemorySession
+from telethon.sync import TelegramClient
+from telethon.crypto import AuthKey
 from datetime import datetime
 from TGConvertor.manager import SessionManager
 from AndroidTelePorter import AndroidSession
@@ -12,6 +17,14 @@ logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s 
 
 
 class Converter:
+    DC_IPS = {
+        1: "149.154.175.50",
+        2: "149.154.167.51",
+        3: "149.154.175.100",
+        4: "149.154.167.91",
+        5: "91.108.56.130"
+    }
+
     def __init__(self, session_folder: str):
         self.session_folder = session_folder
         os.makedirs(self.session_folder, exist_ok=True)
@@ -34,6 +47,27 @@ class Converter:
         except Exception as e:
             print(f"[!] Ошибка конвертации: {e}")
             return False
+
+    def create_session_from_auth_key(self, session_name, auth_key_hex, dc_id):
+        auth_key_bytes = bytes.fromhex(auth_key_hex)
+
+        session = SQLiteSession(os.path.join(self.session_folder, session_name))
+        session.set_dc(dc_id, self.DC_IPS[dc_id], 443)
+        session.auth_key = AuthKey(auth_key_bytes)
+        session.save()
+
+        print(f"Session created and save")
+        return session
+
+    def define_client_from_auth_key(self, auth_key_hex, dc_id, api_id, api_hash, **kwargs):
+        auth_key_bytes = bytes.fromhex(auth_key_hex)
+
+        session = MemorySession()
+        session.set_dc(dc_id, self.DC_IPS[dc_id], 443)
+        session.auth_key = AuthKey(auth_key_bytes)
+
+        client = TelegramClient(session, api_id=api_id, api_hash=api_hash, **kwargs)
+        return client
 
 
 def transfer_dat_session():
@@ -139,5 +173,10 @@ def convert_dat_to_tdata(phone_number):
 
 
 if __name__ == '__main__':
-    transfer_dat_session()
-    convert_dat_to_tdata(0000)
+    converter = Converter('./sessions')
+    converter.create_session_from_auth_key(
+        'test.session',
+        '856e4e20cb1c190fbb9976e8f52926c2d0d6a9ef84a73f62d1a0386fe350465d152d382eb35b27b4d6946a20c00826c8d4f22ced509bf021cb18846f9d1dd483cf5cf9a363332905a1252e8f48208079636ed8f210c0666843dcd683aa093b43a0094b16d27ba29f58a47b9159e9462fc52191c26ef7c1717bcaa9ea31d2fe56f2f960546e88f3084e2ba35496ec06964f2b08a1c0e89ce1ecb006ec93311ba9986ae571da90a649c546de7a08a9ebb29c08e5bbe9dffa260b9f4615da1724f97f888350a89c2e58d1fda4807033e8cd9d74d7c0f42ae7c5afb220753dfe81e1664582205b10c96389a00c2079b3f458b7750fd26820db367cb5f338450666cc',
+        1
+    )
+

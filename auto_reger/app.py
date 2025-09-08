@@ -182,7 +182,7 @@ class Onion(App):
             logging.info("Найдено окно браузера с открытой вкладкой почты.")
 
             try:
-                is_inbox_txt = self.window.child_window(title=' INBOX', control_type='Text').exists(timeout=1)
+                is_inbox_txt = self.window.child_window(title=' INBOX', control_type='Text', found_index=0).exists(timeout=1)
             except ElementNotFoundError:
                 is_inbox_txt = False
 
@@ -198,16 +198,16 @@ class Onion(App):
                 logging.info("Активировано главное меню.")
 
                 try:
-                    log_out = self.window.child_window(control_type='Hyperlink', title='Log out')
+                    log_out = self.window.child_window(control_type='Hyperlink', title='Log out', found_index=0)
                     log_out.wait("visible", timeout=3)
                 except Exception as e:
                     print(f"Not found: {e}")
-                    log_out = self.window.child_window(control_type='Hyperlink', title=' Log out')
+                    log_out = self.window.child_window(control_type='Hyperlink', title=' Log out', found_index=0)
                     log_out.wait("visible", timeout=3)
                 log_out.invoke()
                 logging.info("Успешно был произведен выход с прошлой почты.")
 
-            create_acc_btn = self.window.child_window(title=' Create account', control_type='Hyperlink')
+            create_acc_btn = self.window.child_window(title=' Create account', control_type='Hyperlink', found_index=0)
             create_acc_btn.wait("visible", timeout=10)
             create_acc_btn.invoke()
             logging.info("Найдена форма для создания нового аккаунта.")
@@ -222,36 +222,37 @@ class Onion(App):
                 logging.info("Capcha not found, proceeding with login")
 
             if domain:
-                domain_menu = self.window.child_window(control_type='Button', title='@onionmail.org')
+                domain_menu = self.window.child_window(control_type='Button', title='@onionmail.org', found_index=0)
                 domain_menu.wait("visible", timeout=30)
                 domain_menu.click_input()
 
-                domain_item = self.window.child_window(control_type='Hyperlink', title=domain)
+                domain_item = self.window.child_window(control_type='Hyperlink', title=domain, found_index=0)
                 domain_item.wait("visible", timeout=10)
                 domain_item.click_input()
                 email = username + f'@{domain}'
             else:
                 email = username + '@onionmail.org'
 
-            name_field = self.window.child_window(control_type="Edit", auto_id="name")
+            name_field = self.window.child_window(control_type="Edit", auto_id="name", found_index=0)
             name_field.wait("ready", timeout=60)
+            time.sleep(1)
             name_field.set_text("")
             name_field.type_keys(username, with_spaces=True)
             logging.info("Введено имя пользователя")
 
-            username_field = self.window.child_window(control_type="Edit", auto_id="username")
-            username_field.wait("visible", timeout=10)
+            username_field = self.window.child_window(control_type="Edit", auto_id="username", found_index=0)
+            username_field.wait("ready", timeout=10)
             username_field.set_text("")
             username_field.type_keys(username, with_spaces=True)
             logging.info("Введено имя почты")
 
-            password_field = self.window.child_window(control_type="Edit", auto_id="password")
+            password_field = self.window.child_window(control_type="Edit", auto_id="password", found_index=0)
             password_field.wait("visible", timeout=10)
             password_field.set_text("")
             password_field.type_keys(password, with_spaces=True)
             logging.info("Введен пароль")
 
-            confirm_password_field = self.window.child_window(control_type="Edit", auto_id="password2")
+            confirm_password_field = self.window.child_window(control_type="Edit", auto_id="password2", found_index=0)
             confirm_password_field.wait("visible", timeout=10)
             confirm_password_field.set_text("")
             confirm_password_field.type_keys(password, with_spaces=True)
@@ -259,33 +260,33 @@ class Onion(App):
 
             logging.info("Ищем чекбокс...")
             try:
-                checkbox = self.window.child_window(control_type='CheckBox', title=" Agree to terms of service")
+                checkbox = self.window.child_window(control_type='CheckBox', title=" Agree to terms of service", found_index=0)
                 checkbox.wait("visible", timeout=1)
             except Exception:
-                checkbox = self.window.child_window(control_type='CheckBox', title="Agree to terms of service")
+                checkbox = self.window.child_window(control_type='CheckBox', title="Agree to terms of service", found_index=0)
                 checkbox.wait("visible", timeout=1)
             checkbox.click_input()
             logging.info("Чекбокс активирован")
 
-            create_account_btn = self.window.child_window(control_type='Button', title='CREATE NEW ACCOUNT')
+            create_account_btn = self.window.child_window(control_type='Button', title='CREATE NEW ACCOUNT', found_index=0)
             create_account_btn.wait("visible", timeout=10)
             create_account_btn.invoke()
             logging.info("Новый аккаунт почты создан")
             time.sleep(5)
 
             try:
-                is_login_txt = self.window.child_window(title=' Log in', control_type='Text').exists(timeout=10)
+                is_login_txt = self.window.child_window(title=' Log in', control_type='Text', found_index=0).exists(timeout=10)
             except ElementNotFoundError:
                 is_login_txt = False
 
             if is_login_txt:
-                username_field_log = self.window.child_window(control_type="Edit", auto_id="username")
+                username_field_log = self.window.child_window(control_type="Edit", auto_id="username", found_index=0)
                 username_field_log.wait("visible", timeout=60)
                 username_field_log.set_text("")
                 username_field_log.type_keys(username, with_spaces=True)
                 logging.info("Имя введено")
 
-                password_field_log = self.window.child_window(control_type="Edit", auto_id="password")
+                password_field_log = self.window.child_window(control_type="Edit", auto_id="password", found_index=0)
                 password_field_log.wait("visible", timeout=60)
                 password_field_log.set_text("")
                 password_field_log.type_keys(password, with_spaces=True)
@@ -323,17 +324,17 @@ class Onion(App):
 
             code_element = None
             while attempt < attempts:
-                reload_page = self.window.child_window(title="Перезагрузить", control_type="Button")
+                reload_page = self.window.child_window(title="Перезагрузить", control_type="Button", found_index=0)
                 reload_page.wait("visible", timeout=time_out)
                 reload_page.invoke()
 
                 if service == "telegram":
                     if second_req:
-                        code_element = self.window.child_window(title_re=r'.*Dear , Your code is: \d+', control_type='DataItem')
+                        code_element = self.window.child_window(title_re=r'.*Dear , Your code is: \d+', control_type='DataItem', found_index=0)
                     else:
-                        code_element = self.window.child_window(title_re=r'.*Hello Your code is: \d+', control_type='DataItem')
+                        code_element = self.window.child_window(title_re=r'.*Hello Your code is: \d+', control_type='DataItem', found_index=0)
                 elif service == "instagram":
-                    code_element = self.window.child_window(title_re=r'\d+ is your Instagram code.*', control_type='DataItem')
+                    code_element = self.window.child_window(title_re=r'\d+ is your Instagram code.*', control_type='DataItem', found_index=0)
 
                 if code_element.exists(time_out) and code_element.is_visible():
                     break
@@ -538,5 +539,5 @@ class TelegramDesktop(App):
 
 
 if __name__ == '__main__':
-    vpn = VPN()
-    vpn.change_location('USA')
+    onion = Onion()
+    onion.reg_and_login('fhwoiuefderiufj', 'fhwoiuefderiufj')

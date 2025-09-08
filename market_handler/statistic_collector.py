@@ -7,10 +7,10 @@ import csv
 
 def statistic_collector():
     sms_activate = SmsApi(service='sms-activate',
-                          api_key_path=r'/sms_activate_api.txt')
+                          api_key_path=r'sms_activate_api.txt')
     sms_grizzly = SmsApi(service='grizzly-sms',
-                         api_key_path=r'/grizzly_sms_api.txt')
-    with open(r'/lzt_token.txt', 'rb') as file:
+                         api_key_path=r'grizzly_sms_api.txt')
+    with open(r'lzt_token.txt', 'rb') as file:
         token = bytes.decode(file.read())
 
     market = Market(token=token)

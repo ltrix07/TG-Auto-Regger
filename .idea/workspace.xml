@@ -4,36 +4,193 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="add decryptor for tdata; add lzt api and upload item on market">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TG-Auto-Reg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Auto-Reg-Social.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="53bdb2d3-dace-4824-9853-1cc98e425428" name="Changes" comment="instagram regger">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/config/test_expand.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/config/test_expand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/test_config_discovery.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/setuptools/tests/test_config_discovery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/INSTALLER" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/METADATA" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/RECORD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/REQUESTED" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/WHEEL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/licenses/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/licenses/LICENSE.APACHE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography-45.0.6.dist-info/licenses/LICENSE.BSD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/__about__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/__about__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/fernet.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/fernet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/_oid.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/_oid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/backends/openssl/backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/backends/openssl/backend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust.pyd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/__init__.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/ocsp.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/ocsp.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/__init__.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/__init__.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/aead.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/aead.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/ciphers.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/ciphers.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/ed25519.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/ed25519.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/ed448.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/ed448.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/hashes.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/hashes.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/hmac.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/hmac.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/kdf.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/kdf.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/keys.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/keys.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/poly1305.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/poly1305.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/x25519.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/x25519.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/x448.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/openssl/x448.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/pkcs12.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/pkcs12.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/pkcs7.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/pkcs7.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/test_support.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/test_support.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/x509.pyi" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/_rust/x509.pyi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/openssl/_conditional.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/openssl/_conditional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/openssl/binding.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/bindings/openssl/binding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/decrepit/ciphers/algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/decrepit/ciphers/algorithms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/_cipheralgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/_cipheralgorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/_serialization.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/_serialization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/dh.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/dh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/dsa.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/dsa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/ec.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/ec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/ed25519.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/ed25519.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/ed448.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/ed448.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/rsa.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/rsa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/x25519.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/x25519.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/x448.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/asymmetric/x448.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/ciphers/algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/ciphers/algorithms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/ciphers/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/ciphers/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/ciphers/modes.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/ciphers/modes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/hashes.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/hashes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/concatkdf.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/concatkdf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/hkdf.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/hkdf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/kbkdf.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/kbkdf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/pbkdf2.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/pbkdf2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/x963kdf.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/kdf/x963kdf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/padding.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/padding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/pkcs12.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/pkcs12.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/pkcs7.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/pkcs7.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/ssh.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/serialization/ssh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/twofactor/hotp.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/twofactor/hotp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/twofactor/totp.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/hazmat/primitives/twofactor/totp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/extensions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/name.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/name.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/ocsp.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/ocsp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/oid.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/oid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/verification.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/cryptography/x509/verification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11-0.16.0.dist-info/INSTALLER" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11-0.16.0.dist-info/METADATA" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11-0.16.0.dist-info/RECORD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11-0.16.0.dist-info/WHEEL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11-0.16.0.dist-info/licenses/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11-0.16.0.dist-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_events.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_events.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_headers.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_headers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_readers.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_readers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_version.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/h11/_version.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing-3.2.3.dist-info/INSTALLER" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing-3.2.3.dist-info/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing-3.2.3.dist-info/METADATA" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing-3.2.3.dist-info/RECORD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing-3.2.3.dist-info/REQUESTED" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing-3.2.3.dist-info/WHEEL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/core.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/diagram/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/diagram/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/helpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/results.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/tools/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/tools/cvt_pyparsing_pep8_names.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/pyparsing/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado-6.5.2.dist-info/INSTALLER" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado-6.5.2.dist-info/METADATA" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado-6.5.2.dist-info/RECORD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado-6.5.2.dist-info/WHEEL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado-6.5.2.dist-info/licenses/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado-6.5.2.dist-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/concurrent.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/concurrent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/curl_httpclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/curl_httpclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/escape.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/escape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/gen.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/gen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/http1connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/http1connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/httpclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/httpclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/httpserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/httpserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/httputil.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/httputil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/ioloop.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/ioloop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/iostream.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/iostream.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/locale.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/locale.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/locks.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/locks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/netutil.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/netutil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/options.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/options.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/platform/asyncio.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/platform/asyncio.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/platform/caresresolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/platform/caresresolver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/platform/twisted.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/platform/twisted.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/queues.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/queues.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/routing.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/routing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/simple_httpclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/simple_httpclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/speedups.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/speedups.pyd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/tcpclient.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/tcpclient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/tcpserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/tcpserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/template.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/template.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/asyncio_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/asyncio_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/auth_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/auth_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/autoreload_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/autoreload_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/circlerefs_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/circlerefs_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/concurrent_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/concurrent_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/curl_httpclient_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/curl_httpclient_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/escape_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/escape_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/gen_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/gen_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/httpclient_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/httpclient_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/httpserver_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/httpserver_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/httputil_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/httputil_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/import_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/import_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/ioloop_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/ioloop_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/iostream_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/iostream_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/locks_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/locks_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/log_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/log_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/netutil_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/netutil_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/options_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/options_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/process_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/process_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/runtests.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/runtests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/simple_httpclient_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/simple_httpclient_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/tcpclient_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/tcpclient_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/tcpserver_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/tcpserver_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/template_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/template_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/twisted_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/twisted_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/util_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/util_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/web_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/web_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/websocket_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/test/websocket_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/web.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/web.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/websocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/websocket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv11/Lib/site-packages/tornado/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/activations.json" beforeDir="false" afterPath="$PROJECT_DIR$/activations.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/adb_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/adb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/app_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/adb.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/adb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/decryptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/decryptor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/emulator_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/emulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/lzt_api.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/emulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/emulator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/instagram/2025-08-27_accounts.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/session_converter.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/session_converter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/sms_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/sms_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto_reger/statistic_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/market_handler/statistic_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/dat/tgnet.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto_reger/sessions/dat/userconfing.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auto_reger/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/auto_reger/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cech.json" beforeDir="false" afterPath="$PROJECT_DIR$/cech.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_regger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Browser/test_onion_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Browser/test_onion_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Emulator/test_check_app_installed.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Emulator/test_check_app_installed.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Emulator/test_do_activity.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Emulator/test_do_activity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Emulator/test_init_.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Emulator/test_init_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Telegram/test_account_log_out.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Telegram/test_account_log_out.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Telegram/test_extract_telegram_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Telegram/test_extract_telegram_code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Telegram/test_press_on_chat_with_telegram.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Telegram/test_press_on_chat_with_telegram.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Telegram/test_reconnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Telegram/test_reconnection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Telegram/test_send_number.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Telegram/test_send_number.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Telegram/test_start_messaging.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Telegram/test_start_messaging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instagram_regger.py" beforeDir="false" afterPath="$PROJECT_DIR$/instagram_regger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/market_handler/auto_bump_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/market_handler/auto_bump_cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/market_handler/market.py" beforeDir="false" afterPath="$PROJECT_DIR$/market_handler/market.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/market_handler/sold_statistic.py" beforeDir="false" afterPath="$PROJECT_DIR$/market_handler/sold_statistic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/market_handler/statistic_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/market_handler/statistic_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/market_handler/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/market_handler/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/telegram_regger.py" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_regger.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,13 +269,16 @@
     "Python.Session Converter.executor": "Run",
     "Python.adb.executor": "Run",
     "Python.adb_handler.executor": "Run",
+    "Python.app.executor": "Run",
     "Python.app_handler (1).executor": "Run",
     "Python.app_handler.executor": "Run",
     "Python.auto_bump_cli.executor": "Run",
+    "Python.auto_upload_items.executor": "Run",
     "Python.competitor_analyze.executor": "Run",
     "Python.create_vcf_file.executor": "Run",
     "Python.decryptor.executor": "Run",
     "Python.dergatel.executor": "Run",
+    "Python.emulator.executor": "Run",
     "Python.emulator_handler.executor": "Run",
     "Python.gild.executor": "Run",
     "Python.instagram_regger.executor": "Run",
@@ -131,10 +291,12 @@
     "Python.qty_of_numbers.executor": "Run",
     "Python.sdfdf.executor": "Run",
     "Python.session_converter.executor": "Run",
+    "Python.session_handler (1).executor": "Run",
     "Python.sms_api.executor": "Run",
     "Python.sold_statistic.executor": "Run",
     "Python.statistic_collector.executor": "Run",
     "Python.telegram_regger (1).executor": "Run",
+    "Python.telethon.executor": "Run",
     "Python.test.executor": "Run",
     "Python.test_change_status.executor": "Run",
     "Python.test_converter.executor": "Run",
@@ -144,28 +306,50 @@
     "Python.test_start_emulator.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/sessions/converted/2025-08-23/test2",
+    "last_opened_file_path": "C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/market_handler",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-23\test2" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\market_handler" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\market_handler\accounts" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg" />
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-23\test2" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\gnirehtet" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-23\test" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger\sessions\converted\2025-08-23\acc_15743285648\tdata" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\instagram" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\gnirehtet" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\market_handler" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\auto_reger" />
       <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-19\Cyprus" />
-      <recent name="C:\Users\Владимир\PycharmProjects\TG-Auto-Reg\sessions\converted\2025-08-19\USA" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.auto_bump_cli">
-    <configuration name="adb" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.auto_upload_items">
+    <configuration name="auto_upload_items" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Auto-Reg-Social" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/market_handler" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/market_handler/auto_upload_items.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="decryptor" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Auto-Reg-Social" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -178,7 +362,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/adb.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/decryptor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -187,7 +371,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="auto_bump_cli" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="emulator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Auto-Reg-Social" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -196,11 +380,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/market_handler" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/market_handler/auto_bump_cli.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/emulator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -209,7 +393,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="instagram_regger" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="session_converter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Auto-Reg-Social" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -218,11 +402,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/instagram_regger.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/session_converter.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -231,7 +415,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="items_checker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="session_handler (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Auto-Reg-Social" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -240,33 +424,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/market_handler" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/auto_reger" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/market_handler/items_checker.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="telegram_regger (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Auto-Reg-Social" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/telegram_regger.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/auto_reger/session_handler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -318,20 +480,20 @@
     </configuration>
     <list>
       <item itemvalue="Python.test_converter" />
-      <item itemvalue="Python.adb" />
-      <item itemvalue="Python.instagram_regger" />
-      <item itemvalue="Python.items_checker" />
-      <item itemvalue="Python.telegram_regger (1)" />
-      <item itemvalue="Python.auto_bump_cli" />
+      <item itemvalue="Python.auto_upload_items" />
+      <item itemvalue="Python.emulator" />
+      <item itemvalue="Python.session_converter" />
+      <item itemvalue="Python.session_handler (1)" />
+      <item itemvalue="Python.decryptor" />
       <item itemvalue="Python tests.pytest in C:/Users/Владимир/PycharmProjects/TG-Auto-Reg/tests/Session Converter/test_converter.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.auto_bump_cli" />
-        <item itemvalue="Python.instagram_regger" />
-        <item itemvalue="Python.adb" />
-        <item itemvalue="Python.telegram_regger (1)" />
-        <item itemvalue="Python.items_checker" />
+        <item itemvalue="Python.auto_upload_items" />
+        <item itemvalue="Python.emulator" />
+        <item itemvalue="Python.session_handler (1)" />
+        <item itemvalue="Python.session_converter" />
+        <item itemvalue="Python.decryptor" />
       </list>
     </recent_temporary>
   </component>
@@ -423,7 +585,23 @@
       <option name="project" value="LOCAL" />
       <updated>1755718644427</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="instagram regger">
+      <option name="closed" value="true" />
+      <created>1756294931095</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1756294931095</updated>
+    </task>
+    <task id="LOCAL-00011" summary="instagram regger">
+      <option name="closed" value="true" />
+      <created>1756295191017</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1756295191017</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -441,17 +619,7 @@
     <MESSAGE value="update MAX" />
     <MESSAGE value="add capcha loger; TData creator by Telegram desktop app" />
     <MESSAGE value="add decryptor for tdata; add lzt api and upload item on market" />
-    <option name="LAST_COMMIT_MESSAGE" value="add decryptor for tdata; add lzt api and upload item on market" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/telegram_regger.py</url>
-          <line>85</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="instagram regger" />
+    <option name="LAST_COMMIT_MESSAGE" value="instagram regger" />
   </component>
 </project>
